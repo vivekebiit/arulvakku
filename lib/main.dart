@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const SplashScreen(),
-      initialRoute: Routes.splash,
+      initialRoute: Routes.songs,
       routes: AppRoutes.routes,
     );
   }

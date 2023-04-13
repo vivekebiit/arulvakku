@@ -13,6 +13,9 @@ final dioClientProvider = Provider<DioClient>((ref) {
   return DioClient(dio);
 });
 
+final getSongsCategoryList = FutureProvider<dynamic>((ref) async{
+  return ref.watch(dioClientProvider).get('https://arulvakku.binaryexpertsystems.com/Arulvakku/GetSongsCategoryList');
+});
 final preferencesProvider = Provider<Preference>((ref) {
   return Preference();
 });
