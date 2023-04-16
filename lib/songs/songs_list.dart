@@ -1,26 +1,30 @@
-import 'package:arulvakku/songs/model/song_cateogry.dart';
-import 'package:arulvakku/songs/song_category_item.dart';
 import 'package:arulvakku/songs/song_provider/song_providers.dart';
-import 'package:arulvakku/songs/songs_list.dart';
+import 'package:arulvakku/songs/song_widget.dart';
+import 'package:arulvakku/songs/songs_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SongCategories extends ConsumerStatefulWidget {
-  const SongCategories({Key? key}) : super(key: key);
+import 'model/Song.dart';
+import 'model/song_cateogry.dart';
+
+class SongsList extends ConsumerStatefulWidget {
+  final Result? result;
+
+  const SongsList(this.result, {super.key});
 
   @override
-  _SongCategoriesState createState() => _SongCategoriesState();
+  _SongsListState createState() => _SongsListState();
 }
 
-class _SongCategoriesState extends ConsumerState<SongCategories> {
+class _SongsListState extends ConsumerState<SongsList> {
   @override
   Widget build(BuildContext context) {
-    final categoryList = ref.watch(getSongsCategoryListProvider);
-    final searchSongCategory = ref.watch(searchProvider);
+    final categoryList =
+        ref.watch(getSongsListProvider(widget.result?.sCategoryId ?? 0));
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('அருள்வாக்கு பாடல்கள்'),
+          title: Text(widget.result?.sCategory ?? '--'),
         ),
         body: categoryList.when(
             data: (data) {
@@ -41,7 +45,7 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                         suffixIcon: Icon(Icons.close),
                       ),
                       onChanged: (text) {
-                        ref.read(searchProvider.notifier).search(text);
+                        // ref.read(searchProvider.notifier).search(text);
                       },
                     ),
                   ),
@@ -56,14 +60,14 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                               return InkWell(
                                   onTap: () {
                                     final result =
-                                        Result.fromJson(dataValue[index]);
+                                        Song.fromJson(dataValue[index]);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => SongsList(result)));
+                                            builder: (context) =>
+                                                SongWidget(song: result)));
                                   },
-                                  child:
-                                      SongCategoryItem(data: dataValue[index]));
+                                  child: SongItem(data: dataValue[index]));
                             },
                           ),
                         )
