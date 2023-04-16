@@ -7,7 +7,7 @@ import '../features/home_screen.dart';
 class AppRoutes {
   static final routes = {
     Routes.songs: (context) => const SongCategories(),
-    Routes.home: (context) => const HomeScreen(),
+    Routes.home: (context) =>  HomeScreen(),
     Routes.splash: (context) => const SplashScreen(),
   };
 }

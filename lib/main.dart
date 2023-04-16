@@ -2,6 +2,7 @@ import 'package:arulvakku/features/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'common/app_color.dart';
 import 'routes/app_routes.dart';
 import 'routes/routes.dart';
 
@@ -19,10 +20,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: AppColor.teal,
+          textTheme: const TextTheme(
+              labelMedium: TextStyle(color: Colors.black),
+              bodyText1: TextStyle(color: Colors.black),
+              bodyText2: TextStyle(color: Colors.black))),
       home: const SplashScreen(),
-      initialRoute: Routes.songs,
+      initialRoute: Routes.home,
       routes: AppRoutes.routes,
     );
   }
