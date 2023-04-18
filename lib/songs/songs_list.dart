@@ -65,7 +65,7 @@ class _SongsListState extends ConsumerState<SongsList> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SongWidget(song: result)));
+                                                SongWidget(resultData: dataValue,position: index,)));
                                   },
                                   child: SongItem(data: dataValue[index]));
                             },

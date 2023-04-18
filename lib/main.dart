@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
               bodyText1: TextStyle(color: Colors.black),
               bodyText2: TextStyle(color: Colors.black))),
       home: const SplashScreen(),
-      initialRoute: Routes.home,
+      initialRoute: Routes.songs,
       routes: AppRoutes.routes,
     );
   }
