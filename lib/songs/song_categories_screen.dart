@@ -20,7 +20,7 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('அருள்வாக்கு பாடல்கள்'),
+          title: const Text('பாடல்கள்'),
         ),
         body: categoryList.when(
             data: (data) {
@@ -60,7 +60,8 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => SongsList(result)));
+                                            builder: (context) =>
+                                                SongsList(result)));
                                   },
                                   child:
                                       SongCategoryItem(data: dataValue[index]));

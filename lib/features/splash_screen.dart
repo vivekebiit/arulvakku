@@ -1,4 +1,4 @@
-import 'package:arulvakku/core/shared_provider/shared_providers.dart';
+import 'package:arulvakku/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,16 +13,19 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    ref.read(sharedPrefHelperProvider).saveAuthToken('10001');
+    _startHomeScreen();
   }
 
   @override
   Widget build(BuildContext context) {
-    final readtext = ref.watch(sharedPrefHelperProvider).authToken;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('$readtext'),
-      ),
-    );
+    return const Scaffold();
+  }
+
+  ///Home screen navigation intent
+  _startHomeScreen() {
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          Routes.home, (Route<dynamic> route) => false);
+    });
   }
 }

@@ -18,15 +18,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
           primarySwatch: AppColor.teal,
           textTheme: const TextTheme(
               labelMedium: TextStyle(color: Colors.black),
-              bodyText1: TextStyle(color: Colors.black),
-              bodyText2: TextStyle(color: Colors.black))),
+              bodyLarge: TextStyle(color: Colors.black),
+              bodyMedium: TextStyle(color: Colors.black))),
+      initialRoute: Routes.splash,
       home: const SplashScreen(),
-      initialRoute: Routes.songs,
       routes: AppRoutes.routes,
     );
   }

@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../common/app_ui_dimens.dart';
+import '../routes/routes.dart';
 
 class HomeScreen extends ConsumerWidget {
   HomeScreen({super.key});
 
   final listProvider = Provider((_) => [
-        "இன்றைய செபமாலை",
-        "இன்றைய வாசகங்கள்",
         "திருவிவிலியம்",
+        "பாடல்கள்",
         "வானொலி",
         "செபமாலை",
         "திருச்சிலுவைப்பாதை",
@@ -113,13 +113,22 @@ class HomeScreen extends ConsumerWidget {
                               primary: false,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                return Card(
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(
-                                          AppUIDimens.marginLarge),
-                                      child: Text(
-                                        listMenu[index],
-                                      )),
+                                return InkWell(
+                                  onTap: () {
+                                    if (listMenu[index] == "பாடல்கள்") {
+                                      Navigator.of(context).pushNamed(
+                                        Routes.songs,
+                                      );
+                                    }
+                                  },
+                                  child: Card(
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(
+                                            AppUIDimens.marginLarge),
+                                        child: Text(
+                                          listMenu[index],
+                                        )),
+                                  ),
                                 );
                               })
                         ],
