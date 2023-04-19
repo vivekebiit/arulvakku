@@ -1,4 +1,3 @@
-import 'package:arulvakku/songs/model/Song.dart';
 import 'package:arulvakku/songs/song_provider/controller_position_notifier.dart';
 import 'package:arulvakku/songs/song_provider/search.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,8 +21,7 @@ final searchProvider = StateNotifierProvider<Search, List<dynamic>>((ref) {
 });
 
 final controllerPositionNotifier = StateNotifierProvider<ControllerPositionNotifier, int>((ref) {
-  print('controllerPositionNotifier');
-  return ControllerPositionNotifier(0);
+  return ControllerPositionNotifier();
 });
 
 Map<String, dynamic> toJsonToGetSongs(int sCategoryId) => {

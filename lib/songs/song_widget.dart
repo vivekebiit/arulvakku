@@ -15,8 +15,6 @@ class SongWidget extends ConsumerStatefulWidget {
 }
 
 class _SongWidgetState extends ConsumerState<SongWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     final songs = widget.resultData?.map((e) => Song.fromJson(e)).toList() ??
@@ -24,11 +22,9 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
 
     int position = ref.watch(controllerPositionNotifier);
 
-    // positionNotifier.position(widget.position);
     final PageController controller =
         PageController(initialPage: widget.position);
 
-    print('_SongWidgetState');
     return Scaffold(
       appBar: AppBar(
         title: Text(songs[position].sTitle ?? '--'),
@@ -37,10 +33,8 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
         controller: controller,
         itemCount: songs.length,
         onPageChanged: (index) {
-          print('position: $index');
           ref.watch(controllerPositionNotifier.notifier).position(index);
         },
-
         itemBuilder: (context, index) {
           return SingleChildScrollView(
             child: Column(
