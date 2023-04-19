@@ -22,6 +22,7 @@ final searchProvider = StateNotifierProvider<Search, List<dynamic>>((ref) {
 });
 
 final controllerPositionNotifier = StateNotifierProvider<ControllerPositionNotifier, int>((ref) {
+  print('controllerPositionNotifier');
   return ControllerPositionNotifier(0);
 });
 

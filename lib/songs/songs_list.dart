@@ -59,13 +59,16 @@ class _SongsListState extends ConsumerState<SongsList> {
                             itemBuilder: (context, index) {
                               return InkWell(
                                   onTap: () {
+                                    ref.watch(controllerPositionNotifier.notifier).position(index);
                                     final result =
                                         Song.fromJson(dataValue[index]);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                SongWidget(resultData: dataValue,position: index,)));
+                                            builder: (context) => SongWidget(
+                                                  resultData: dataValue,
+                                                  position: index,
+                                                )));
                                   },
                                   child: SongItem(data: dataValue[index]));
                             },
