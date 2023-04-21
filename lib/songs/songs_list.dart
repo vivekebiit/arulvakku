@@ -4,7 +4,6 @@ import 'package:arulvakku/songs/songs_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'model/Song.dart';
 import 'model/song_cateogry.dart';
 
 class SongsList extends ConsumerStatefulWidget {
@@ -59,9 +58,7 @@ class _SongsListState extends ConsumerState<SongsList> {
                             itemBuilder: (context, index) {
                               return InkWell(
                                   onTap: () {
-                                    ref.watch(controllerPositionNotifier.notifier).position(index);
-                                    final result =
-                                        Song.fromJson(dataValue[index]);
+                                    ref.read(controllerPositionNotifier.notifier).position(index);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

@@ -33,7 +33,7 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
         controller: controller,
         itemCount: songs.length,
         onPageChanged: (index) {
-          ref.watch(controllerPositionNotifier.notifier).position(index);
+          ref.read(controllerPositionNotifier.notifier).position(index);
         },
         itemBuilder: (context, index) {
           return SingleChildScrollView(

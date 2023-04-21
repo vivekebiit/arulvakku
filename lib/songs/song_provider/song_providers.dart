@@ -1,5 +1,5 @@
 import 'package:arulvakku/songs/song_provider/controller_position_notifier.dart';
-import 'package:arulvakku/songs/song_provider/search.dart';
+import 'package:arulvakku/songs/song_provider/search_categories.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/shared_provider/shared_providers.dart';
@@ -16,11 +16,15 @@ final getSongsListProvider =
       data: toJsonToGetSongs(sCategoryId));
 });
 
-final searchProvider = StateNotifierProvider<Search, List<dynamic>>((ref) {
-  return Search();
+final searchProvider =
+    StateNotifierProvider<SearchCategories, AsyncValue<dynamic>>((ref) {
+  final data = ref.watch(getSongsCategoryListProvider);
+
+  return SearchCategories(data);
 });
 
-final controllerPositionNotifier = StateNotifierProvider<ControllerPositionNotifier, int>((ref) {
+final controllerPositionNotifier =
+    StateNotifierProvider<ControllerPositionNotifier, int>((ref) {
   return ControllerPositionNotifier();
 });
 

@@ -15,20 +15,18 @@ class SongCategories extends ConsumerStatefulWidget {
 class _SongCategoriesState extends ConsumerState<SongCategories> {
   @override
   Widget build(BuildContext context) {
-    final categoryList = ref.watch(getSongsCategoryListProvider);
     final searchSongCategory = ref.watch(searchProvider);
 
     return Scaffold(
         appBar: AppBar(
           title: const Text('பாடல்கள்'),
         ),
-        body: categoryList.when(
+        body: searchSongCategory.when(
             data: (data) {
-              final List<dynamic>? resultData = (data.data as Map)['Result'];
 
-              // ref.read(searchProvider.notifier).todos = resultData;
+              final List<dynamic>? resultData = data;
               final dataValue = resultData ?? List.empty();
-              // ref.read(searchProvider.notifier).init(dataValue);
+
               return Column(
                 children: [
                   Container(
