@@ -33,10 +33,10 @@ final sharedPrefHelperProvider = Provider<SharedPreferenceHelper>((ref) {
   return ref.watch(jsonProvider).get(
       'https://arulvakku.binaryexpertsystems.com/Arulvakku/GetSongsCategoryList');
 });*/
-final getDailyLine = FutureProvider<dynamic>((ref)async {
+final getDailyLine = FutureProvider<dynamic>((ref) async {
   await Future.delayed(const Duration(seconds: 2));
   final String response =
-  await rootBundle.loadString('assets/json/daily_verses.json');
+      await rootBundle.loadString('assets/json/daily_verses.json');
   final data = await json.decode(response);
   for (var obj in data) {
     if (obj["date"] == DateFormat("ddMMyyyy").format(DateTime.now())) {
