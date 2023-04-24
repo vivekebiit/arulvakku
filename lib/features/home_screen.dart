@@ -119,6 +119,11 @@ class HomeScreen extends ConsumerWidget {
                                       Navigator.of(context).pushNamed(
                                         Routes.songs,
                                       );
+                                    } else if (listMenu[index] ==
+                                        "செப வேண்டுதல்") {
+                                      Navigator.of(context).pushNamed(
+                                        Routes.prayerViewScreen,
+                                      );
                                     }
                                   },
                                   child: Card(
