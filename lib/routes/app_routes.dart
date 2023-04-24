@@ -1,9 +1,7 @@
 import 'package:arulvakku/features/splash_screen.dart';
 import 'package:arulvakku/routes/routes.dart';
-import 'package:arulvakku/songs/song_categories_screen.dart';
-
-import '../features/home_screen.dart';
-
+import 'package:arulvakku/songs/widgets/song_categories_list_widget.dart';
+import 'package:arulvakku/features/home_screen.dart';
 class AppRoutes {
   static final routes = {
     Routes.songs: (context) => const SongCategories(),

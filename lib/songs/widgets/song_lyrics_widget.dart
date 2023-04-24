@@ -1,7 +1,8 @@
-import 'package:arulvakku/songs/model/Song.dart';
-import 'package:arulvakku/songs/song_provider/song_providers.dart';
+import 'package:arulvakku/songs/providers/song_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../model/Song.dart';
 
 class SongWidget extends ConsumerStatefulWidget {
   final List<dynamic>? resultData;
@@ -20,7 +21,7 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
     final songs = widget.resultData?.map((e) => Song.fromJson(e)).toList() ??
         List<Song>.empty();
 
-    int position = ref.watch(controllerPositionNotifier);
+    int position = ref.watch(controllerPositionProvider);
 
     final PageController controller =
         PageController(initialPage: widget.position);
@@ -33,7 +34,7 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
         controller: controller,
         itemCount: songs.length,
         onPageChanged: (index) {
-          ref.read(controllerPositionNotifier.notifier).position(index);
+          ref.read(controllerPositionProvider.notifier).position(index);
         },
         itemBuilder: (context, index) {
           return SingleChildScrollView(

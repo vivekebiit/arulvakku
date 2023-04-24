@@ -1,7 +1,6 @@
 import 'package:arulvakku/features/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'common/app_color.dart';
 import 'routes/app_routes.dart';
 import 'routes/routes.dart';

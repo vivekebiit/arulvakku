@@ -18,6 +18,4 @@ class Result {
       sCount: json['sCount'],
     );
   }
-
-
 }
