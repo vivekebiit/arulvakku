@@ -15,9 +15,7 @@ class HomeScreen extends ConsumerWidget {
         "வானொலி",
         "செபமாலை",
         "திருச்சிலுவைப்பாதை",
-        "செப வேண்டுதல்",
-        "திருவழிப்பட்டு நாட்குறிப்பு",
-        "உங்கள் கருத்து",
+        "செப விண்ணப்பம்",
         "தொடர்புக்கு"
       ]);
 
@@ -120,9 +118,14 @@ class HomeScreen extends ConsumerWidget {
                                         Routes.songs,
                                       );
                                     } else if (listMenu[index] ==
-                                        "செப வேண்டுதல்") {
+                                        "செப விண்ணப்பம்") {
                                       Navigator.of(context).pushNamed(
                                         Routes.prayerViewScreen,
+                                      );
+                                    } else if (listMenu[index] ==
+                                        "தொடர்புக்கு") {
+                                      Navigator.of(context).pushNamed(
+                                        Routes.contactUsScreen,
                                       );
                                     }
                                   },

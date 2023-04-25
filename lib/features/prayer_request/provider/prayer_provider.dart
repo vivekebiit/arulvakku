@@ -1,6 +1,6 @@
 import 'package:arulvakku/core/shared_provider/shared_providers.dart';
 import 'package:arulvakku/features/prayer_request/data/api/prayer_request_api.dart';
-import 'package:arulvakku/features/prayer_request/data/repository/prayer_repository.dart';
+import 'package:arulvakku/features/prayer_request/repository/prayer_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final networnConnectionProdiver = Provider<PrayerRequestAPI>((ref) {
@@ -8,5 +8,6 @@ final networnConnectionProdiver = Provider<PrayerRequestAPI>((ref) {
 });
 
 final prayerRepositoryProvider = FutureProvider<dynamic>((ref) async {
-  return PrayerRepository(ref.watch(networnConnectionProdiver)).fetchPrayers();
+  return PrayerRepository(ref.watch(networnConnectionProdiver))
+      .fetchPrayersRequested();
 });
