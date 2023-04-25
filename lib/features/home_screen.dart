@@ -1,3 +1,4 @@
+import 'package:arulvakku/common/common_utils.dart';
 import 'package:arulvakku/core/shared_provider/shared_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends ConsumerWidget {
         "செப விண்ணப்பம்",
         "தொடர்புக்கு"
       ]);
+  final GlobalKey _globalKey = GlobalKey();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,66 +48,83 @@ class HomeScreen extends ConsumerWidget {
                 dailyLine.when(
                     data: (data) {
                       var resultData = data;
-                      if (kDebugMode) {
-                        print("ResultData $resultData");
-                      }
                       return Column(
                         children: [
-                          Card(
-                            child: Padding(
-                                padding: const EdgeInsets.all(
-                                    AppUIDimens.paddingMedium),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.accessibility,
-                                        ),
-                                        const SizedBox(
-                                          width: AppUIDimens.marginXXSmall,
-                                        ),
-                                        Column(
-                                          children: [
-                                            const Text(
-                                              "இன்றைய வாசகம்",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(resultData["verseNo"])
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: AppUIDimens.marginSmall,
-                                    ),
-                                    Text(resultData["verse"]),
-                                    const SizedBox(
-                                      height: AppUIDimens.marginSmall,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: const [
-                                        Expanded(
-                                            child: Text(
-                                          "www.arulvakku.com",
-                                          style: TextStyle(
-                                            color: Colors.red,
-                                            decoration:
-                                                TextDecoration.underline,
+                          Stack(children: [
+                            RepaintBoundary(
+                                key: _globalKey,
+                                child: Card(
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(
+                                          AppUIDimens.paddingMedium),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.accessibility,
+                                              ),
+                                              const SizedBox(
+                                                width:
+                                                    AppUIDimens.marginXXSmall,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  const Text(
+                                                    "இன்றைய வசனம்",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Text(resultData["verseNo"])
+                                                ],
+                                              ),
+                                            ],
                                           ),
-                                        )),
-                                        Icon(Icons.download_outlined),
-                                        SizedBox(
-                                          width: AppUIDimens.marginSmall,
-                                        ),
-                                        Icon(Icons.share_outlined)
-                                      ],
-                                    ),
-                                  ],
+                                          const SizedBox(
+                                            height: AppUIDimens.marginSmall,
+                                          ),
+                                          Text(resultData["verse"]),
+                                          const SizedBox(
+                                            height: AppUIDimens.marginSmall,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Expanded(
+                                                  child: GestureDetector(
+                                                      onTap: () {
+                                                        CommonUtils.launchURL(
+                                                            "https://www.arulvakku.com/index.html",
+                                                            context);
+                                                      },
+                                                      child: const Text(
+                                                        "www.arulvakku.com",
+                                                        style: TextStyle(
+                                                          color: Colors.red,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                        ),
+                                                      ))),
+                                            ],
+                                          ),
+                                        ],
+                                      )),
                                 )),
-                          ),
+                            Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: IconButton(
+                                  icon: const Icon(Icons.share_outlined),
+                                  onPressed: () async {
+                                    await CommonUtils.convertIntoPNGAndShare(
+                                        _globalKey,
+                                        "https://play.google.com/store/apps/details?id=com.arulvakku&hl=en");
+                                  },
+                                ))
+                          ]),
                           ListView.builder(
                               itemCount: listMenu.length,
                               primary: false,
@@ -116,6 +135,11 @@ class HomeScreen extends ConsumerWidget {
                                     if (listMenu[index] == "பாடல்கள்") {
                                       Navigator.of(context).pushNamed(
                                         Routes.songs,
+                                      );
+                                    } else if (listMenu[index] ==
+                                        "திருவிவிலியம்") {
+                                      Navigator.of(context).pushNamed(
+                                        Routes.testament,
                                       );
                                     } else if (listMenu[index] ==
                                         "செப விண்ணப்பம்") {
@@ -143,10 +167,76 @@ class HomeScreen extends ConsumerWidget {
                       );
                     },
                     error: (err, s) => Text(err.toString()),
-                    loading: () => const Center(
-                          child: CircularProgressIndicator(),
-                        )),
+                    loading: () => CommonUtils.screenLoadingWidget(context)),
               ],
             ))));
+  }
+
+  sharableWidget(var resultData, BuildContext context) {
+    return RepaintBoundary(
+        key: _globalKey,
+        child: Card(
+          child: Padding(
+              padding: const EdgeInsets.all(AppUIDimens.paddingMedium),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.accessibility,
+                      ),
+                      const SizedBox(
+                        width: AppUIDimens.marginXXSmall,
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            "இன்றைய வசனம்",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(resultData["verseNo"])
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: AppUIDimens.marginSmall,
+                  ),
+                  Text(resultData["verse"]),
+                  const SizedBox(
+                    height: AppUIDimens.marginSmall,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Expanded(
+                          child: GestureDetector(
+                              onTap: () {
+                                CommonUtils.launchURL(
+                                    "https://www.arulvakku.com/index.html",
+                                    context);
+                              },
+                              child: const Text(
+                                "www.arulvakku.com",
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ))),
+                      /* IconButton(
+                        icon: const Icon(
+                            Icons.share_outlined),
+                        onPressed: () async {
+                          await CommonUtils
+                              .convertIntoPNGAndShare(
+                              _globalKey,
+                              "https://play.google.com/store/apps/details?id=com.arulvakku&hl=en");
+                        },
+                      )*/
+                    ],
+                  ),
+                ],
+              )),
+        ));
   }
 }

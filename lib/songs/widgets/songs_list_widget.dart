@@ -4,6 +4,7 @@ import 'package:arulvakku/songs/widgets/songs_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../common/common_utils.dart';
 import '../model/song_cateogry.dart';
 
 
@@ -95,8 +96,6 @@ class _SongsListState extends ConsumerState<SongsList> {
               );
             },
             error: (err, s) => Text(err.toString()),
-            loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                )));
+            loading: () => CommonUtils.screenLoadingWidget(context)));
   }
 }

@@ -5,4 +5,5 @@ class Routes {
   static const String prayerViewScreen = '/prayerViewScreen';
   static const String prayerRequestScreen = '/prayerRequestScreen';
   static const String contactUsScreen = '/contactUsScreen';
+  static const String testament = '/testament';
 }
