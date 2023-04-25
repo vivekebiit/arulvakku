@@ -1,12 +1,12 @@
-import 'package:arulvakku/songs/model/song_cateogry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../model/Song.dart';
 
-class SearchCategories extends StateNotifier<AsyncValue<List<dynamic>>> {
-  AsyncValue<List<dynamic>> songCategoryListBackup = AsyncData(List.empty());
+class SearchSongsNotifier extends StateNotifier<AsyncValue<List<dynamic>>> {
+  AsyncValue<List<dynamic>> songListBackup = AsyncData(List.empty());
 
   AsyncValue<dynamic> providerData;
 
-  SearchCategories(this.providerData) : super(const AsyncValue.loading()) {
+  SearchSongsNotifier(this.providerData) : super(const AsyncValue.loading()) {
     _init();
   }
 
@@ -16,7 +16,7 @@ class SearchCategories extends StateNotifier<AsyncValue<List<dynamic>>> {
         final List<dynamic>? resultData = (response.data as Map)['Result'];
         final dataValue = resultData ?? List.empty();
         state = AsyncValue.data(dataValue);
-        songCategoryListBackup = AsyncValue.data(dataValue);
+        songListBackup = AsyncValue.data(dataValue);
       } catch (err, stack) {
         state = AsyncValue.error(err, stack);
       }
@@ -29,11 +29,11 @@ class SearchCategories extends StateNotifier<AsyncValue<List<dynamic>>> {
 
   void search(String text) {
     if (text.isEmpty) {
-      state = songCategoryListBackup;
+      state = songListBackup;
     } else {
-      state = AsyncValue.data(songCategoryListBackup.value
+      state = AsyncValue.data(songListBackup.value
               ?.where(
-                  (e) => Result.fromJson(e).sCategory?.contains(text) == true)
+                  (e) => Song.fromJson(e).sSong?.contains(text) == true)
               .toList() ??
           List.empty());
     }

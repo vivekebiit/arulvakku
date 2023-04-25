@@ -3,10 +3,8 @@ import 'package:arulvakku/features/prayer_request/view/prayers_request_screen.da
 import 'package:arulvakku/features/prayer_request/view/prayers_view_screen.dart';
 import 'package:arulvakku/features/splash_screen.dart';
 import 'package:arulvakku/routes/routes.dart';
-import 'package:arulvakku/songs/song_categories_screen.dart';
-
-import '../features/home_screen.dart';
-
+import 'package:arulvakku/songs/widgets/song_categories_list_widget.dart';
+import 'package:arulvakku/features/home_screen.dart';
 class AppRoutes {
   static final routes = {
     Routes.songs: (context) => const SongCategories(),
