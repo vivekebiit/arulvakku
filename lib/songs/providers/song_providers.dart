@@ -37,8 +37,11 @@ final controllerPositionProvider =
   return ControllerPositionNotifier();
 });
 
-final searchTextProvider = StateNotifierProvider.autoDispose<SearchTextNotifier, TextEditingController>(
+final searchCategoryTextProvider = StateNotifierProvider.autoDispose<SearchTextNotifier, TextEditingController>(
     (ref) => SearchTextNotifier());
+
+final searchSongTextProvider = StateNotifierProvider.autoDispose<SearchTextNotifier, TextEditingController>(
+        (ref) => SearchTextNotifier());
 
 Map<String, dynamic> toJsonToGetSongs(int sCategoryId) => {
       'sCategoryId': sCategoryId,
