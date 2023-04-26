@@ -71,7 +71,7 @@ class HomeScreen extends ConsumerWidget {
                                               Column(
                                                 children: [
                                                   const Text(
-                                                    "இன்றைய வசனம்",
+                                                    "இன்றைய  வசனம்",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -156,9 +156,21 @@ class HomeScreen extends ConsumerWidget {
                                   child: Card(
                                     child: Padding(
                                         padding: const EdgeInsets.all(
-                                            AppUIDimens.marginLarge),
-                                        child: Text(
-                                          listMenu[index],
+                                            AppUIDimens.paddingMedium),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Expanded(
+                                                child: Text(
+                                              listMenu[index],
+                                            )),
+                                            Icon(
+                                              Icons
+                                                  .keyboard_arrow_right_rounded,
+                                              color: Colors.grey[400],
+                                            )
+                                          ],
                                         )),
                                   ),
                                 );

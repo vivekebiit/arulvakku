@@ -23,17 +23,17 @@ class _TestamentScreenState extends State<TestamentScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('அருள்வாக்கு'),
+        title: const Text('திருவிவிலியம்'),
         actions: const [
           Padding(
               padding: EdgeInsets.only(right: 20),
               child: Icon(
-                Icons.share,
+                Icons.search,
                 size: 20,
               )),
           Padding(
               padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.notifications_active))
+              child: Icon(Icons.note_add_rounded))
         ],
         bottom: TabBar(
           controller: _tabController,
