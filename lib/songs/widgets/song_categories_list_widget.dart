@@ -19,7 +19,7 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
   @override
   Widget build(BuildContext context) {
     final searchSongCategory = ref.watch(searchCategoriesProvider);
-    final myController = ref.watch(searchTextProvider);
+    final myController = ref.watch(searchCategoryTextProvider);
 
     myController.addListener(() {
       ref.read(searchCategoriesProvider.notifier).search(myController.text);
@@ -48,7 +48,7 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                               ref
                                   .read(searchCategoriesProvider.notifier)
                                   .search('');
-                              ref.read(searchTextProvider.notifier).text('');
+                              ref.read(searchCategoryTextProvider.notifier).text('');
                             },
                             icon: const Icon(Icons.close)),
                       ),
@@ -70,7 +70,6 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                               return InkWell(
 
                                   onTap: () {
-                                    ref.read(searchTextProvider.notifier).text('');
                                     final result =
                                         Result.fromJson(dataValue[index]);
                                     Navigator.push(

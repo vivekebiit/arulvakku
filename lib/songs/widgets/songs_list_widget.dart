@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../common/common_utils.dart';
 import '../model/song_cateogry.dart';
 
-
 class SongsList extends ConsumerStatefulWidget {
   final Result? result;
 
@@ -20,13 +19,15 @@ class SongsList extends ConsumerStatefulWidget {
 class _SongsListState extends ConsumerState<SongsList> {
   @override
   Widget build(BuildContext context) {
-    int  currentPosition = widget.result?.sCategoryId ?? 0;
+    int currentPosition = widget.result?.sCategoryId ?? 0;
     final categoryList = ref.watch(searchSongsProvider(currentPosition));
 
-    final myController = ref.watch(searchTextProvider);
+    final myController = ref.watch(searchSongTextProvider);
 
     myController.addListener(() {
-      ref.read(searchSongsProvider(currentPosition).notifier).search(myController.text);
+      ref
+          .read(searchSongsProvider(currentPosition).notifier)
+          .search(myController.text);
     });
     return Scaffold(
         appBar: AppBar(
@@ -45,19 +46,19 @@ class _SongsListState extends ConsumerState<SongsList> {
                     margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: TextFormField(
                       controller: myController,
-                      decoration:  InputDecoration(
+                      decoration: InputDecoration(
                         border: const UnderlineInputBorder(),
                         prefixIcon: const Icon(Icons.search),
                         suffixIcon: IconButton(
                             onPressed: () {
                               ref
-                                  .read(searchSongsProvider(currentPosition).notifier)
+                                  .read(searchSongsProvider(currentPosition)
+                                      .notifier)
                                   .search('');
-                              ref.read(searchTextProvider.notifier).text('');
+                              ref.read(searchSongTextProvider.notifier).text('');
                             },
                             icon: const Icon(Icons.close)),
                       ),
-
                     ),
                   ),
                   const SizedBox(
@@ -69,10 +70,8 @@ class _SongsListState extends ConsumerState<SongsList> {
                             itemCount: dataValue.length,
                             itemBuilder: (context, index) {
                               return InkWell(
-
                                   onTap: () {
                                     currentPosition = index;
-                                    ref.read(searchTextProvider.notifier).text('');
                                     ref
                                         .read(
                                             controllerPositionProvider.notifier)
@@ -98,4 +97,5 @@ class _SongsListState extends ConsumerState<SongsList> {
             error: (err, s) => Text(err.toString()),
             loading: () => CommonUtils.screenLoadingWidget(context)));
   }
+
 }
