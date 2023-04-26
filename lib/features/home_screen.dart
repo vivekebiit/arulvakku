@@ -1,5 +1,6 @@
 import 'package:arulvakku/common/common_utils.dart';
 import 'package:arulvakku/core/shared_provider/shared_providers.dart';
+import 'package:arulvakku/utilities/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -145,6 +146,11 @@ class HomeScreen extends ConsumerWidget {
                                         "செப விண்ணப்பம்") {
                                       Navigator.of(context).pushNamed(
                                         Routes.prayerViewScreen,
+                                      );
+                                    }else if (listMenu[index] ==
+                                        AppConstants.radio) {
+                                      Navigator.of(context).pushNamed(
+                                        Routes.radio,
                                       );
                                     } else if (listMenu[index] ==
                                         "தொடர்புக்கு") {

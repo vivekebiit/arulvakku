@@ -2,6 +2,7 @@ import 'package:arulvakku/features/contact/view/contact_us.dart';
 import 'package:arulvakku/features/notes/ui/new_note_screen.dart';
 import 'package:arulvakku/features/prayer_request/view/prayers_request_screen.dart';
 import 'package:arulvakku/features/prayer_request/view/prayers_view_screen.dart';
+import 'package:arulvakku/features/radio/radio_screen.dart';
 import 'package:arulvakku/features/splash_screen.dart';
 import 'package:arulvakku/features/testament/testament_screen.dart';
 import 'package:arulvakku/routes/routes.dart';
@@ -17,5 +18,6 @@ class AppRoutes {
     Routes.splash: (context) => const SplashScreen(),
     Routes.notes: (context) => const NewNoteScreen(),
     Routes.notesList: (context) => const NotesListScreen(),
+    Routes.radio: (context) => const RadioScreen(),
   };
 }
