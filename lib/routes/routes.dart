@@ -9,4 +9,5 @@ class Routes {
   static const String notes = '/notes';
   static const String notesList = '/notesList';
   static const String radio = '/radio';
+  static const String testamentDetails = '/testamentDetails';
 }

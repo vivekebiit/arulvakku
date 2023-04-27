@@ -1,3 +1,4 @@
+import 'package:arulvakku/common/common_utils.dart';
 import 'package:arulvakku/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +14,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    CommonUtils.returnBookChapter();
+    CommonUtils.returnVerseNo();
     _startHomeScreen();
+
   }
 
   @override

@@ -33,7 +33,7 @@ class NewTestamentScreen extends ConsumerWidget {
                     return InkWell(
                       onTap: () {
                         Navigator.of(context).pushNamed(
-                          Routes.songs,
+                          Routes.testamentDetails,
                         );
                       },
                       child: Padding(

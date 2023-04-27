@@ -1,3 +1,4 @@
+import 'package:arulvakku/routes/arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -33,7 +34,7 @@ class OldTestamentScreen extends ConsumerWidget {
                     return InkWell(
                       onTap: () {
                         Navigator.of(context).pushNamed(
-                          Routes.songs,
+                          Routes.testamentDetails,arguments: Argument(bookId: CommonUtils.returnBookID(resultData[index].field1!), bookName: resultData[index].field3!)
                         );
                       },
                       child: Padding(

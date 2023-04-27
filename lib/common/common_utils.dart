@@ -13,7 +13,7 @@ import 'dart:ui' as ui;
 class CommonUtils {
   CommonUtils._();
 
-  static screenLoadingWidget( BuildContext context)  {
+  static screenLoadingWidget(BuildContext context) {
     return SizedBox(
         height: MediaQuery.of(context).size.height - 100,
         width: MediaQuery.of(context).size.width,
@@ -25,6 +25,7 @@ class CommonUtils {
               CircularProgressIndicator(),
             ]));
   }
+
   static launchURL(String url, BuildContext context) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
@@ -47,13 +48,13 @@ class CommonUtils {
     }
   }
 
-  static convertIntoPNGAndShare(GlobalKey _globalKey,String text) async {
+  static convertIntoPNGAndShare(GlobalKey _globalKey, String text) async {
     try {
       final RenderRepaintBoundary boundary = _globalKey.currentContext!
           .findRenderObject()! as RenderRepaintBoundary;
       final ui.Image image = await boundary.toImage();
       ByteData? byteData =
-      await image.toByteData(format: ui.ImageByteFormat.png);
+          await image.toByteData(format: ui.ImageByteFormat.png);
       var pngBytes = byteData!.buffer.asUint8List();
       //var bs64 = base64Encode(pngBytes);
 
@@ -74,6 +75,36 @@ class CommonUtils {
       );
     } catch (e) {
       print(e);
+    }
+  }
+
+  static returnBookID(String id) {
+    if (id.trim().length == 1) {
+      return "0$id";
+    } else {
+      return id;
+    }
+  }
+
+  static returnBookChapter({String id = "01007008"}) {
+    // debugPrint(id.substring(2, 5));
+    if (id.substring(2, 5).startsWith("00")) {
+      return int.parse(id.substring(5, 7)) + 1;
+    } else if (id.substring(2, 5).startsWith("0")) {
+      return int.parse(id.substring(5, 6)) + 1;
+    } else {
+      return int.parse(id.substring(2, 5)) + 1;
+    }
+  }
+
+  static returnVerseNo({String id = "01001002"}) {
+    // debugPrint(id.substring(5, 8));
+    if (id.substring(5, 8).startsWith("00")) {
+      return int.parse(id.substring(7, 8)) ;
+    } else if (id.substring(5, 8).startsWith("0")) {
+      return int.parse(id.substring(6, 8)) ;
+    } else {
+      return int.parse(id.substring(5, 8));
     }
   }
 }
