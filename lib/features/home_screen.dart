@@ -1,7 +1,7 @@
 import 'package:arulvakku/common/common_utils.dart';
 import 'package:arulvakku/core/shared_provider/shared_providers.dart';
 import 'package:arulvakku/utilities/constants.dart';
-import 'package:flutter/foundation.dart';
+import 'package:arulvakku/utilities/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,16 +16,26 @@ class HomeScreen extends ConsumerWidget {
         "பாடல்கள்",
         "வானொலி",
         "செபமாலை",
-        "திருச்சிலுவைப்பாதை",
         "செப விண்ணப்பம்",
         "தொடர்புக்கு"
       ]);
+
+  final imagesProvider = Provider((_) => [
+        AppImages.bibleLogo,
+        AppImages.songMenu,
+        AppImages.radioMenu,
+        AppImages.rosaryMenu,
+        AppImages.prayerMenu,
+        AppImages.contactMenu,
+      ]);
+
   final GlobalKey _globalKey = GlobalKey();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dailyLine = ref.watch(getDailyLine);
     final listMenu = ref.watch(listProvider);
+    final listImagesMenu = ref.watch(imagesProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text('அருள்வாக்கு'),
@@ -55,6 +65,16 @@ class HomeScreen extends ConsumerWidget {
                             RepaintBoundary(
                                 key: _globalKey,
                                 child: Card(
+                                  shape: const Border(
+                                    bottom: BorderSide(
+                                        color: Colors.grey, width: 0.5),
+                                    top: BorderSide(
+                                        color: Colors.grey, width: 0.5),
+                                    left: BorderSide(
+                                        color: Colors.grey, width: 0.5),
+                                    right: BorderSide(
+                                        color: Colors.grey, width: 0.5),
+                                  ),
                                   child: Padding(
                                       padding: const EdgeInsets.all(
                                           AppUIDimens.paddingMedium),
@@ -62,8 +82,10 @@ class HomeScreen extends ConsumerWidget {
                                         children: [
                                           Row(
                                             children: [
-                                              const Icon(
-                                                Icons.accessibility,
+                                              Image.asset(
+                                                AppImages.bibleLogo,
+                                                width: 32,
+                                                height: 32,
                                               ),
                                               const SizedBox(
                                                 width:
@@ -77,39 +99,49 @@ class HomeScreen extends ConsumerWidget {
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
+                                                  const SizedBox(
+                                                    height: AppUIDimens
+                                                        .marginXXXSmall,
+                                                  ),
                                                   Text(resultData["verseNo"])
                                                 ],
                                               ),
                                             ],
                                           ),
                                           const SizedBox(
-                                            height: AppUIDimens.marginSmall,
+                                            height: AppUIDimens.marginXXXSmall,
                                           ),
-                                          Text(resultData["verse"]),
+                                          Text(
+                                            resultData["verse"],
+                                            style: const TextStyle(height: 1.5),
+                                          ),
                                           const SizedBox(
                                             height: AppUIDimens.marginSmall,
                                           ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Expanded(
-                                                  child: GestureDetector(
-                                                      onTap: () {
-                                                        CommonUtils.launchURL(
-                                                            "https://www.arulvakku.com/index.html",
-                                                            context);
-                                                      },
-                                                      child: const Text(
-                                                        "www.arulvakku.com",
-                                                        style: TextStyle(
-                                                          color: Colors.red,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
-                                                        ),
-                                                      ))),
-                                            ],
+                                          Visibility(
+                                            visible: false,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Expanded(
+                                                    child: GestureDetector(
+                                                        onTap: () {
+                                                          CommonUtils.launchURL(
+                                                              "https://www.arulvakku.com/index.html",
+                                                              context);
+                                                        },
+                                                        child: const Text(
+                                                          "www.arulvakku.com",
+                                                          style: TextStyle(
+                                                            color: Colors.red,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                        ))),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       )),
@@ -147,7 +179,7 @@ class HomeScreen extends ConsumerWidget {
                                       Navigator.of(context).pushNamed(
                                         Routes.prayerViewScreen,
                                       );
-                                    }else if (listMenu[index] ==
+                                    } else if (listMenu[index] ==
                                         AppConstants.radio) {
                                       Navigator.of(context).pushNamed(
                                         Routes.radio,
@@ -160,6 +192,16 @@ class HomeScreen extends ConsumerWidget {
                                     }
                                   },
                                   child: Card(
+                                    shape: const Border(
+                                      bottom: BorderSide(
+                                          color: Colors.grey, width: 0.5),
+                                      top: BorderSide(
+                                          color: Colors.grey, width: 0.5),
+                                      left: BorderSide(
+                                          color: Colors.grey, width: 0.5),
+                                      right: BorderSide(
+                                          color: Colors.grey, width: 0.5),
+                                    ),
                                     child: Padding(
                                         padding: const EdgeInsets.all(
                                             AppUIDimens.paddingMedium),
@@ -167,6 +209,14 @@ class HomeScreen extends ConsumerWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
                                           children: [
+                                            Image.asset(
+                                              listImagesMenu[index],
+                                              width: 24,
+                                              height: 24,
+                                            ),
+                                            const SizedBox(
+                                              width: 16,
+                                            ),
                                             Expanded(
                                                 child: Text(
                                               listMenu[index],

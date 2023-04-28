@@ -1,9 +1,7 @@
-import 'package:arulvakku/features/notes/ui/new_note_screen.dart';
 import 'package:arulvakku/features/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'common/app_color.dart';
-import 'features/notes/ui/notes_list_screen.dart';
 import 'routes/app_routes.dart';
 import 'routes/routes.dart';
 
@@ -22,6 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+          fontFamily: 'Latha',
           primarySwatch: AppColor.teal,
           textTheme: const TextTheme(
               labelMedium: TextStyle(color: Colors.black),
