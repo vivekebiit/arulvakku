@@ -23,6 +23,9 @@ class AppRoutes {
     Routes.notes: (context) => const NewNoteScreen(),
     Routes.notesList: (context) => const NotesListScreen(),
     Routes.radio: (context) => const RadioScreen(),
+    Routes.prayerViewScreen: (context) => const PrayerViewScreen(),
+    Routes.prayerRequestScreen: (context) => PrayerRequestScreen(),
+    Routes.contactUsScreen: (context) => const ContactUsScreen(),
     // Routes.testamentDetails: (context) => const TestamentDetailScreen(),
   };
 
