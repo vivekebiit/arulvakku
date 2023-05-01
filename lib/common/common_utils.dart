@@ -86,23 +86,26 @@ class CommonUtils {
     }
   }
 
-  static returnBookChapter({String id = "01007008"}) {
-    // debugPrint(id.substring(2, 5));
+  static returnBookChapter({String id = "01117008"}) {
+    // debugPrint("Chapter ${id.substring(2, 5)}");
     if (id.substring(2, 5).startsWith("00")) {
-      return int.parse(id.substring(5, 7)) + 1;
+      // debugPrint("Chapter ${int.parse(id.substring(4, 5))}");
+      return int.parse(id.substring(4, 5));
     } else if (id.substring(2, 5).startsWith("0")) {
-      return int.parse(id.substring(5, 6)) + 1;
+      // debugPrint("Chapter ${int.parse(id.substring(3, 5))}");
+      return int.parse(id.substring(3, 5));
     } else {
-      return int.parse(id.substring(2, 5)) + 1;
+      // debugPrint("Chapter ${int.parse(id.substring(2, 5))}");
+      return int.parse(id.substring(2, 5));
     }
   }
 
   static returnVerseNo({String id = "01001002"}) {
     // debugPrint(id.substring(5, 8));
     if (id.substring(5, 8).startsWith("00")) {
-      return int.parse(id.substring(7, 8)) ;
+      return int.parse(id.substring(7, 8));
     } else if (id.substring(5, 8).startsWith("0")) {
-      return int.parse(id.substring(6, 8)) ;
+      return int.parse(id.substring(6, 8));
     } else {
       return int.parse(id.substring(5, 8));
     }

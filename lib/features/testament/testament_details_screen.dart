@@ -3,6 +3,7 @@ import 'package:arulvakku/common/common_utils.dart';
 import 'package:arulvakku/features/testament/data/model/testament_details.dart';
 import 'package:arulvakku/features/testament/tabs/new_testament_screen.dart';
 import 'package:arulvakku/features/testament/tabs/old_testament_screen.dart';
+import 'package:arulvakku/features/testament/verse_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -50,6 +51,7 @@ class TestamentDetailScreen extends ConsumerWidget {
                         primary: false,
                         itemBuilder: (context, index) {
                           bool showChapter = false;
+                          bool longPressed = false;
                           if (chapterNo !=
                               CommonUtils.returnBookChapter(
                                   id: resultData[index].field1!)) {
@@ -62,29 +64,38 @@ class TestamentDetailScreen extends ConsumerWidget {
                             children: [
                               if (showChapter)
                                 const SizedBox(
-                                  height: AppUIDimens.paddingSmall,
+                                  height: AppUIDimens.paddingXXSmall,
                                 ),
                               if (showChapter)
                                 Text(
-                                  "${AppConstants.chapter}. ${CommonUtils.returnBookChapter(id: resultData[index].field1!)}",
+                                  "${AppConstants.chapter} ${CommonUtils.returnBookChapter(id: resultData[index].field1!)}",
                                   style: const TextStyle(
                                       color: Colors.red,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.bold),
                                 ),
-                              const SizedBox(
-                                height: AppUIDimens.paddingSmall,
-                              ),
+                              if (showChapter)
+                                const SizedBox(
+                                  height: AppUIDimens.paddingSmall,
+                                ),
                               if (resultData[index].field3 == "T")
-                                Center(child:Text(
+                                Center(
+                                    child: Text(
                                   resultData[index].field2!,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                       color: Colors.black,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.bold),
                                 )),
+                              if (showChapter)
+                                const SizedBox(
+                                  height: AppUIDimens.paddingSmall,
+                                ),
                               if (resultData[index].field3 == "V")
-                                Text(
-                                    "${CommonUtils.returnVerseNo(id: resultData[index].field1!)}. ${resultData[index].field2!}"),
+                                VerseItem(
+                                    title:
+                                        "${CommonUtils.returnVerseNo(id: resultData[index].field1!)}. ${resultData[index].field2!}"),
                             ],
                           );
                         },
