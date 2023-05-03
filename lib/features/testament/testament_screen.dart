@@ -44,7 +44,8 @@ class _TestamentScreenState extends State<TestamentScreen>
             Tab(
               child: Text("புதிய ஏற்பாடு"),
             ),
-          ],indicatorColor: Theme.of(context).cardColor,
+          ],
+          indicatorColor: Theme.of(context).cardColor,
         ),
       ),
       body: TabBarView(
