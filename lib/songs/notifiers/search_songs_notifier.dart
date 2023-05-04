@@ -1,8 +1,9 @@
+import 'package:arulvakku/songs/singleton/song_singleton.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/Song.dart';
 
 class SearchSongsNotifier extends StateNotifier<AsyncValue<List<dynamic>>> {
-  AsyncValue<List<dynamic>> songListBackup = AsyncData(List.empty());
+  AsyncValue<List<Song>> songListBackup = AsyncData(List.empty());
 
   AsyncValue<dynamic> providerData;
 
@@ -15,8 +16,10 @@ class SearchSongsNotifier extends StateNotifier<AsyncValue<List<dynamic>>> {
       try {
         final List<dynamic>? resultData = (response.data as Map)['Result'];
         final dataValue = resultData ?? List.empty();
-        state = AsyncValue.data(dataValue);
-        songListBackup = AsyncValue.data(dataValue);
+        songListBackup = AsyncValue.data(dataValue.map((e) => Song.fromJson(e)).toList());
+        state = songListBackup;
+       final singleton= SongSingleton();
+       singleton.songListBackup = songListBackup;
       } catch (err, stack) {
         state = AsyncValue.error(err, stack);
       }
@@ -33,7 +36,7 @@ class SearchSongsNotifier extends StateNotifier<AsyncValue<List<dynamic>>> {
     } else {
       state = AsyncValue.data(songListBackup.value
               ?.where(
-                  (e) => Song.fromJson(e).sSong?.contains(text) == true)
+                  (e) => e.sSong?.contains(text) == true)
               .toList() ??
           List.empty());
     }

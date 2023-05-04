@@ -16,7 +16,7 @@ class Song {
 
   factory Song.fromJson(Map<String, dynamic> json) {
     return Song(
-        sNo: json['sNo'],
+        sNo: json['SNo'],
         sSongId: json['sSongId'],
         sTitle: json['sTitle'],
         sCategory: json['sCategory'],

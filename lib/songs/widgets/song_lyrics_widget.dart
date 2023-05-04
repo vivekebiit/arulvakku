@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/Song.dart';
 
 class SongWidget extends ConsumerStatefulWidget {
-  final List<dynamic>? resultData;
+  final List<Song>? resultData;
   final int position;
 
   const SongWidget({Key? key, required this.resultData, required this.position})
@@ -18,7 +18,7 @@ class SongWidget extends ConsumerStatefulWidget {
 class _SongWidgetState extends ConsumerState<SongWidget> {
   @override
   Widget build(BuildContext context) {
-    final songs = widget.resultData?.map((e) => Song.fromJson(e)).toList() ??
+    final songs = widget.resultData??List.empty();
         List<Song>.empty();
 
     int position = ref.watch(controllerPositionProvider);

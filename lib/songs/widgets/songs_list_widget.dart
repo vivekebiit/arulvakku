@@ -1,3 +1,4 @@
+import 'package:arulvakku/songs/model/Song.dart';
 import 'package:arulvakku/songs/providers/song_providers.dart';
 import 'package:arulvakku/songs/widgets/song_lyrics_widget.dart';
 import 'package:arulvakku/songs/widgets/songs_item_widget.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common/common_utils.dart';
 import '../model/song_cateogry.dart';
+import '../singleton/song_singleton.dart';
 
 class SongsList extends ConsumerStatefulWidget {
   final Result? result;
@@ -40,6 +42,7 @@ class _SongsListState extends ConsumerState<SongsList> {
               // ref.read(searchProvider.notifier).todos = resultData;
               final dataValue = resultData ?? List.empty();
               // ref.read(searchProvider.notifier).init(dataValue);
+
               return Column(
                 children: [
                   Container(
@@ -55,7 +58,9 @@ class _SongsListState extends ConsumerState<SongsList> {
                                   .read(searchSongsProvider(currentPosition)
                                       .notifier)
                                   .search('');
-                              ref.read(searchSongTextProvider.notifier).text('');
+                              ref
+                                  .read(searchSongTextProvider.notifier)
+                                  .text('');
                             },
                             icon: const Icon(Icons.close)),
                       ),
@@ -72,19 +77,33 @@ class _SongsListState extends ConsumerState<SongsList> {
                               return InkWell(
                                   onTap: () {
                                     currentPosition = index;
+
+                                    final singleton = SongSingleton();
+                                    final allSongs =
+                                        singleton.songListBackup.value ??
+                                            List.empty();
+
+                                    print('all songs: ${allSongs.length}');
+                                    final position = allSongs.indexWhere(
+                                        ((element) =>
+                                            element.sSongId == dataValue[index]
+                                                .sSongId));
+
+                                    print('position_of_song: $position');
                                     ref
                                         .read(
                                             controllerPositionProvider.notifier)
-                                        .position(index);
+                                        .position(position);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => SongWidget(
-                                                  resultData: dataValue,
-                                                  position: index,
+                                                  resultData: allSongs,
+                                                  position: position,
                                                 )));
                                   },
-                                  child: SongItem(data: dataValue[index]));
+                                  child:
+                                      SongItem(data: dataValue[index]));
                             },
                           ),
                         )
@@ -97,5 +116,4 @@ class _SongsListState extends ConsumerState<SongsList> {
             error: (err, s) => Text(err.toString()),
             loading: () => CommonUtils.screenLoadingWidget(context)));
   }
-
 }
