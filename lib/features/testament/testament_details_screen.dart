@@ -1,8 +1,6 @@
 import 'package:arulvakku/common/app_ui_dimens.dart';
 import 'package:arulvakku/common/common_utils.dart';
 import 'package:arulvakku/features/testament/data/model/testament_details.dart';
-import 'package:arulvakku/features/testament/tabs/new_testament_screen.dart';
-import 'package:arulvakku/features/testament/tabs/old_testament_screen.dart';
 import 'package:arulvakku/features/testament/verse_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
