@@ -1,8 +1,9 @@
 import 'package:arulvakku/songs/providers/song_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
-import '../model/Song.dart';
+import 'package:arulvakku/songs/model/Song.dart';
 
 class SongWidget extends ConsumerStatefulWidget {
   final List<Song>? resultData;
@@ -16,10 +17,11 @@ class SongWidget extends ConsumerStatefulWidget {
 }
 
 class _SongWidgetState extends ConsumerState<SongWidget> {
+  String? lyrics;
   @override
   Widget build(BuildContext context) {
-    final songs = widget.resultData??List.empty();
-        List<Song>.empty();
+    final songs = widget.resultData ?? List.empty();
+    List<Song>.empty();
 
     int position = ref.watch(controllerPositionProvider);
 
@@ -29,6 +31,19 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
     return Scaffold(
       appBar: AppBar(
         title: Text(songs[position].sTitle ?? '--'),
+        actions: [
+          Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.share,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Share.share(lyrics ?? '');
+                },
+              )),
+        ],
       ),
       body: PageView.builder(
         controller: controller,
@@ -37,13 +52,14 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
           ref.read(controllerPositionProvider.notifier).position(index);
         },
         itemBuilder: (context, index) {
+          lyrics = songs[index].sSong ?? '--';
           return SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
-                    songs[index].sSong ?? '--',
+                    lyrics ?? '--',
                   ),
                 )
               ],

@@ -1,13 +1,14 @@
-import 'package:arulvakku/songs/model/Song.dart';
+import 'dart:developer';
+
 import 'package:arulvakku/songs/providers/song_providers.dart';
-import 'package:arulvakku/songs/widgets/song_lyrics_widget.dart';
+import 'package:arulvakku/songs/views/song_lyrics_widget.dart';
 import 'package:arulvakku/songs/widgets/songs_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../common/common_utils.dart';
-import '../model/song_cateogry.dart';
-import '../singleton/song_singleton.dart';
+import 'package:arulvakku/common/common_utils.dart';
+import 'package:arulvakku/songs/model/song_cateogry.dart';
+import 'package:arulvakku/songs/singleton/song_singleton.dart';
 
 class SongsList extends ConsumerStatefulWidget {
   final Result? result;
@@ -46,24 +47,25 @@ class _SongsListState extends ConsumerState<SongsList> {
               return Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextFormField(
                       controller: myController,
                       decoration: InputDecoration(
-                        border: const UnderlineInputBorder(),
-                        prefixIcon: const Icon(Icons.search),
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              ref
-                                  .read(searchSongsProvider(currentPosition)
-                                      .notifier)
-                                  .search('');
-                              ref
-                                  .read(searchSongTextProvider.notifier)
-                                  .text('');
-                            },
-                            icon: const Icon(Icons.close)),
-                      ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50.0)),
+                          prefixIcon: const Icon(Icons.search),
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                ref
+                                    .read(searchSongsProvider(currentPosition)
+                                        .notifier)
+                                    .search('');
+                                ref
+                                    .read(searchSongTextProvider.notifier)
+                                    .text('');
+                              },
+                              icon: const Icon(Icons.close)),
+                          contentPadding: const EdgeInsets.all(12)),
                     ),
                   ),
                   const SizedBox(
@@ -82,14 +84,10 @@ class _SongsListState extends ConsumerState<SongsList> {
                                     final allSongs =
                                         singleton.songListBackup.value ??
                                             List.empty();
-
-                                    print('all songs: ${allSongs.length}');
                                     final position = allSongs.indexWhere(
                                         ((element) =>
-                                            element.sSongId == dataValue[index]
-                                                .sSongId));
-
-                                    print('position_of_song: $position');
+                                            element.sSongId ==
+                                            dataValue[index].sSongId));
                                     ref
                                         .read(
                                             controllerPositionProvider.notifier)
@@ -102,8 +100,7 @@ class _SongsListState extends ConsumerState<SongsList> {
                                                   position: position,
                                                 )));
                                   },
-                                  child:
-                                      SongItem(data: dataValue[index]));
+                                  child: SongItem(data: dataValue[index]));
                             },
                           ),
                         )

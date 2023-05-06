@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../model/Song.dart';
-
+import 'package:arulvakku/songs/model/Song.dart';
 
 class SongItem extends StatelessWidget {
   final Song data;

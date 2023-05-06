@@ -1,12 +1,14 @@
 import 'package:arulvakku/songs/providers/song_providers.dart';
+import 'package:arulvakku/songs/views/songs_list_widget.dart';
 import 'package:arulvakku/songs/widgets/song_category_item_widget.dart';
-import 'package:arulvakku/songs/widgets/songs_list_widget.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../common/common_utils.dart';
-import '../model/song_cateogry.dart';
+import 'package:arulvakku/common/common_utils.dart';
+import 'package:arulvakku/songs/model/song_cateogry.dart';
+
 
 class SongCategories extends ConsumerStatefulWidget {
   const SongCategories({Key? key}) : super(key: key);
@@ -37,21 +39,24 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
               return Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                     child: TextFormField(
                       controller: myController,
                       decoration: InputDecoration(
-                        border: const UnderlineInputBorder(),
-                        prefixIcon: const Icon(Icons.search),
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              ref
-                                  .read(searchCategoriesProvider.notifier)
-                                  .search('');
-                              ref.read(searchCategoryTextProvider.notifier).text('');
-                            },
-                            icon: const Icon(Icons.close)),
-                      ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50.0)),
+                          prefixIcon: const Icon(Icons.search),
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                ref
+                                    .read(searchCategoriesProvider.notifier)
+                                    .search('');
+                                ref
+                                    .read(searchCategoryTextProvider.notifier)
+                                    .text('');
+                              },
+                              icon: const Icon(Icons.close)),
+                          contentPadding: const EdgeInsets.all(12)),
                       /*onChanged: (text) {
                           ref
                               .read(searchCategoriesProvider.notifier)
@@ -68,7 +73,6 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                             itemCount: dataValue.length,
                             itemBuilder: (context, index) {
                               return InkWell(
-
                                   onTap: () {
                                     final result =
                                         Result.fromJson(dataValue[index]);

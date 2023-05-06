@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../model/song_cateogry.dart';
-
+import 'package:arulvakku/songs/model/song_cateogry.dart';
 
 class SongCategoryItem extends StatelessWidget {
   final dynamic data;
