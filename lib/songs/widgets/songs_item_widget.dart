@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-
-import '../model/Song.dart';
-
+import 'package:arulvakku/songs/model/Song.dart';
 
 class SongItem extends StatelessWidget {
-  final dynamic data;
+  final Song data;
 
   const SongItem({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final result = Song.fromJson(data);
     return Column(
       children: [
         ListTile(
-          title: Text(result.sTitle ?? '--'),
+          title: Text(data.sTitle ?? '--'),
           leading: const Icon(Icons.music_note),
           trailing: const Icon(
             Icons.arrow_forward_ios_sharp,

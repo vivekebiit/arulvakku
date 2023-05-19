@@ -1,16 +1,27 @@
-import 'package:arulvakku/core/network/constant/endpoints.dart';
 import 'package:arulvakku/core/network/dio_client.dart';
 
-class PrayerRequestAPI {
+class PrayerViewRequestAPI {
   // dio instance
   final DioClient _dioClient;
 
   // injecting dio instance
-  PrayerRequestAPI(this._dioClient);
+  PrayerViewRequestAPI(this._dioClient);
 
-  Future<Map<String, dynamic>> fetchRequestedPrayersApi() async {
+  Future<List<dynamic>> fetchRequestedPrayersApi() async {
     try {
-      final res = await _dioClient.get(Endpoints.viewPrayerRequest);
+      final res = await _dioClient.get('http://localhost:3000/api/prayers');
+      return res.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /// post prayer request
+
+  Future<Map<String, dynamic>> createPrayersApi(dynamic requestParam) async {
+    try {
+      final res = await _dioClient.post('http://localhost:3000/api/prayers',
+          data: requestParam);
       return res.data;
     } catch (e) {
       rethrow;

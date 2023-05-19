@@ -1,3 +1,4 @@
+import 'package:arulvakku/features/prayer_request/provider/prayer_provider.dart';
 import 'package:arulvakku/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,9 +24,12 @@ class PrayerRequestScreen extends ConsumerWidget {
             children: [
               const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text(
-                  AppConstants.sebVendutalInfo,
-                  textAlign: TextAlign.center,
+                child: Visibility(
+                  visible: false,
+                  child: Text(
+                    AppConstants.sebVendutalInfo,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -38,7 +42,7 @@ class PrayerRequestScreen extends ConsumerWidget {
                 textInputAction: TextInputAction.none,
                 validator: (value) {
                   if (value.toString().isEmpty) {
-                    return "பெயர்";
+                    return "பெயர்"; //பெயர்
                   }
                   return null;
                 },
@@ -60,7 +64,7 @@ class PrayerRequestScreen extends ConsumerWidget {
                 textInputAction: TextInputAction.none,
                 validator: (value) {
                   if (value.toString().isEmpty) {
-                    return "இடம்";
+                    return "இடம்"; //இடம்
                   }
                   return null;
                 },
@@ -83,7 +87,7 @@ class PrayerRequestScreen extends ConsumerWidget {
                 textInputAction: TextInputAction.none,
                 validator: (value) {
                   if (value.toString().isEmpty) {
-                    return "வேண்டுதல்";
+                    return "வேண்டுதல்"; //வேண்டுதல்
                   }
                   return null;
                 },
@@ -109,6 +113,16 @@ class PrayerRequestScreen extends ConsumerWidget {
                       ),
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
+                          final req = {
+                            "name": nameTextController.text.toString().trim(),
+                            "place": placeTextController.text.toString().trim(),
+                            "prayer":
+                                intensionTextController.text.toString().trim(),
+                            "response": "",
+                            "fcm": "12222222222222222222222222"
+                          };
+                          final response =
+                              ref.watch(createPrayerRequestProvider(req));
                         } else {}
                       },
                       child: const Text('அனுப்பு')))
