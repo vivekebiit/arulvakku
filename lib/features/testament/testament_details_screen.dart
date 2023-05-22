@@ -2,6 +2,7 @@ import 'package:arulvakku/common/app_ui_dimens.dart';
 import 'package:arulvakku/common/common_utils.dart';
 import 'package:arulvakku/features/testament/data/model/testament_details.dart';
 import 'package:arulvakku/features/testament/verse_item.dart';
+import 'package:arulvakku/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,6 +16,7 @@ class TestamentDetailScreen extends ConsumerWidget {
   const TestamentDetailScreen({super.key, required this.argument});
 
   static int chapterNo = 0;
+  static Map<String, String> notesObj = {};
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,16 +24,22 @@ class TestamentDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(argument.bookName),
-        actions: const [
-          Padding(
+        actions: [
+          const Padding(
               padding: EdgeInsets.only(right: 20),
               child: Icon(
                 Icons.search,
                 size: 20,
               )),
           Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.note_add_rounded))
+              padding: const EdgeInsets.only(right: 20),
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.notes,
+                        arguments: Argument(
+                            bookId: "", bookName: "", notesObj: notesObj));
+                  },
+                  icon: const Icon(Icons.note_add_rounded)))
         ],
       ),
       body: SingleChildScrollView(
@@ -49,7 +57,6 @@ class TestamentDetailScreen extends ConsumerWidget {
                         primary: false,
                         itemBuilder: (context, index) {
                           bool showChapter = false;
-                          bool longPressed = false;
                           if (chapterNo !=
                               CommonUtils.returnBookChapter(
                                   id: resultData[index].field1!)) {
@@ -93,7 +100,17 @@ class TestamentDetailScreen extends ConsumerWidget {
                               if (resultData[index].field3 == "V")
                                 VerseItem(
                                     title:
-                                        "${CommonUtils.returnVerseNo(id: resultData[index].field1!)}. ${resultData[index].field2!}"),
+                                        "${CommonUtils.returnVerseNo(id: resultData[index].field1!)}. ${resultData[index].field2!}",
+                                    onLongPressed: (bo) {
+                                      if (bo) {
+                                        notesObj[
+                                                "${CommonUtils.returnBookChapter(id: resultData[index].field1!)}.${CommonUtils.returnVerseNo(id: resultData[index].field1!)}"] =
+                                            resultData[index].field2!;
+                                      } else {
+                                        notesObj.remove(
+                                            "${CommonUtils.returnBookChapter(id: resultData[index].field1!)}.${CommonUtils.returnVerseNo(id: resultData[index].field1!)}");
+                                      }
+                                    }),
                             ],
                           );
                         },

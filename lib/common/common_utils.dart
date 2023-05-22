@@ -78,6 +78,14 @@ class CommonUtils {
     }
   }
 
+  static shareText(String text) async {
+    try {
+      Share.share(text);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   static returnBookID(String id) {
     if (id.trim().length == 1) {
       return "0$id";

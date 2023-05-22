@@ -20,7 +20,7 @@ class AppRoutes {
     Routes.home: (context) => HomeScreen(),
     Routes.testament: (context) => const TestamentScreen(),
     Routes.splash: (context) => const SplashScreen(),
-    Routes.notes: (context) => const NewNoteScreen(),
+    Routes.notes: (context) => NewNoteScreen(),
     Routes.notesList: (context) => const NotesListScreen(),
     Routes.radio: (context) => const RadioScreen(),
     Routes.prayerViewScreen: (context) => const PrayerViewScreen(),
@@ -40,7 +40,6 @@ class AppRoutes {
   }
 
   static Route<dynamic> generateRoutes(RouteSettings settings) {
-    final args = settings.arguments as Argument;
     switch (settings.name) {
       case Routes.splash:
         return MaterialPageRoute(
@@ -55,8 +54,9 @@ class AppRoutes {
           builder: (context) => const TestamentScreen(),
         );
       case Routes.notes:
+        final args = settings.arguments as Argument;
         return MaterialPageRoute(
-          builder: (context) => const NewNoteScreen(),
+          builder: (context) => NewNoteScreen(args: args),
         );
 
       case Routes.notesList:
@@ -70,6 +70,7 @@ class AppRoutes {
         );
 
       case Routes.testamentDetails:
+        final args = settings.arguments as Argument;
         return MaterialPageRoute(
           builder: (context) => TestamentDetailScreen(
             argument: args,

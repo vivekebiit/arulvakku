@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../../../common/app_ui_dimens.dart';
 import '../../../common/database_utils.dart';
+import '../../../routes/arguments.dart';
 import '../../../widget/custom_button.dart';
 import '../data/model/notes.dart';
 
 class NewNoteScreen extends StatefulWidget {
-  const NewNoteScreen({Key? key}) : super(key: key);
+  final Argument? args;
+
+  const NewNoteScreen({Key? key, this.args}) : super(key: key);
 
   @override
   State<NewNoteScreen> createState() => _NewNoteScreenState();
@@ -20,16 +23,33 @@ class _NewNoteScreenState extends State<NewNoteScreen> {
   AutovalidateMode mode = AutovalidateMode.disabled;
 
   @override
+  void initState() {
+    if (widget.args!.notesObj != null) {
+      getMsg();
+    }
+    super.initState();
+  }
+
+  String noteText = "";
+
+  getMsg() {
+    widget.args!.notesObj!.forEach((key, value) {
+      noteText = "$noteText$key  $value\n";
+    });
+    mMessageController.text = noteText;
+  }
+
+  @override
   Widget build(BuildContext context) {
     var titleField = CustomTextField(controller: mTitleController);
     titleField.hint = "Title";
-    titleField.validator = (arg) {
-      if (arg!.trim().isEmpty) {
-        return "Title cannot be blank";
-      } else {
-        return null;
-      }
-    };
+    // titleField.validator = (arg) {
+    //   if (arg!.trim().isEmpty) {
+    //     return "Title cannot be blank";
+    //   } else {
+    //     return null;
+    //   }
+    // };
     var messageField = CustomTextField(controller: mMessageController);
 
     messageField.maxLines = null;

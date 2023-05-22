@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
               labelMedium: TextStyle(color: Colors.black),
               bodyLarge: TextStyle(color: Colors.black),
               bodyMedium: TextStyle(color: Colors.black))),
-      initialRoute: Routes.splash,
+      // initialRoute: Routes.splash,
       home: const SplashScreen(),
-      routes: AppRoutes.routes,
+      // routes: AppRoutes.routes,
       onGenerateRoute: AppRoutes.generateRoutes,
     );
   }

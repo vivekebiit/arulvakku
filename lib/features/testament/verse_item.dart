@@ -4,8 +4,10 @@ import '../../common/common_utils.dart';
 
 class VerseItem extends StatefulWidget {
   final String title;
+  final ValueChanged<bool> onLongPressed;
 
-  const VerseItem({Key? key, required this.title}) : super(key: key);
+  const VerseItem({Key? key, required this.title, required this.onLongPressed})
+      : super(key: key);
 
   @override
   State<VerseItem> createState() => _VerseItemState();
@@ -18,7 +20,8 @@ class _VerseItemState extends State<VerseItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onLongPress: () {
-          longPressed = true;
+          longPressed = !longPressed;
+          widget.onLongPressed(longPressed);
           setState(() {});
         },
         child: Text(

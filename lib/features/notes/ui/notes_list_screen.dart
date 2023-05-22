@@ -1,4 +1,5 @@
 import 'package:arulvakku/common/common_utils.dart';
+import 'package:arulvakku/common/database_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,10 +19,6 @@ class NotesListScreen extends ConsumerWidget {
             onPressed: () async {
               dynamic response =
                   await Navigator.of(context).pushNamed(Routes.notes);
-              /*if (response is bool && response) {
-                notesListWatcher = ref.read(fetchNotesFromLocalDatabase);
-
-              }*/
             },
             child: const Icon(Icons.add)),
         appBar: AppBar(
@@ -56,27 +53,66 @@ class NotesListScreen extends ConsumerWidget {
                             child: Padding(
                                 padding: const EdgeInsets.all(
                                     AppUIDimens.paddingMedium),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                child: Column(
                                   children: [
-                                    Expanded(
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                          Text(
-                                            notesList[index].title!,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w600),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Expanded(
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                              Text(
+                                                notesList[index].title!,
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              const SizedBox(
+                                                height:
+                                                    AppUIDimens.paddingMedium,
+                                              ),
+                                              Text(
+                                                notesList[index].message!,
+                                              ),
+                                            ])),
+                                        // Icon(
+                                        //   Icons.keyboard_arrow_right_rounded,
+                                        //   color: Colors.grey[400],
+                                        // )
+                                      ],
+                                    ),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          GestureDetector(
+                                              child: const Text(
+                                                "SHARE",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              onTap: () {
+                                                CommonUtils.shareText(
+                                                    notesList[index].message!);
+                                              }),
+                                          const SizedBox(
+                                            width: AppUIDimens.paddingMedium,
                                           ),
-                                          Text(
-                                            notesList[index].message!,
-                                          ),
-                                        ])),
-                                    Icon(
-                                      Icons.keyboard_arrow_right_rounded,
-                                      color: Colors.grey[400],
-                                    )
+                                          GestureDetector(
+                                              child: const Text(
+                                                "DELETE",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.red),
+                                              ),
+                                              onTap: () {
+                                                DBProvider.db.deletenotes(
+                                                    notesList[index].id!);
+                                              })
+                                        ]),
                                   ],
                                 )),
                           ),

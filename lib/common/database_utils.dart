@@ -28,7 +28,7 @@ class DBProvider {
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute(
-          "CREATE TABLE notes (id TEXT PRIMARY KEY,title TEXT,message TEXT,date_time TEXT)");
+          "CREATE TABLE notes (id TEXT PRIMARY KEY,title TEXT,message TEXT,verses TEXT,date_time TEXT)");
     });
   }
 
@@ -36,12 +36,13 @@ class DBProvider {
     final db = await database;
     //insert to the table using the new id
     var raw = await db.rawInsert(
-        "INSERT Into notes (id,title,message)"
-        " VALUES (?,?,?,?)",
+        "INSERT Into notes (id,title,message,verses,date_time)"
+        " VALUES (?,?,?,?,?)",
         [
           note.id,
           note.title,
           note.message,
+          note.verses,
           note.dateTime,
         ]);
     debugPrint("Raw input $raw");
@@ -80,7 +81,7 @@ class DBProvider {
     }
   }
 
-  deletenotes(String id) async {
+  deletenotes(int id) async {
     final db = await database;
     return db.delete("notes", where: "id = ?", whereArgs: [id]);
   }

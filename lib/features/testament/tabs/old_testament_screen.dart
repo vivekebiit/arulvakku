@@ -33,9 +33,12 @@ class OldTestamentScreen extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed(
-                          Routes.testamentDetails,arguments: Argument(bookId: CommonUtils.returnBookID(resultData[index].field1!), bookName: resultData[index].field3!)
-                        );
+                        Navigator.of(context).pushNamed(Routes.testamentDetails,
+                            arguments: Argument(
+                                bookId: CommonUtils.returnBookID(
+                                    resultData[index].field1!),
+                                bookName: resultData[index].field3!,
+                                notesObj: {}));
                       },
                       child: Padding(
                         padding:

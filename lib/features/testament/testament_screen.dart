@@ -2,6 +2,8 @@ import 'package:arulvakku/features/testament/tabs/new_testament_screen.dart';
 import 'package:arulvakku/features/testament/tabs/old_testament_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../routes/routes.dart';
+
 class TestamentScreen extends StatefulWidget {
   const TestamentScreen({Key? key}) : super(key: key);
 
@@ -24,16 +26,26 @@ class _TestamentScreenState extends State<TestamentScreen>
     return Scaffold(
       appBar: AppBar(
         title: const Text('திருவிவிலியம்'),
-        actions: const [
-          Padding(
+        actions: [
+          const Padding(
               padding: EdgeInsets.only(right: 20),
               child: Icon(
                 Icons.search,
                 size: 20,
               )),
-          Padding(
+          const Padding(
               padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.note_add_rounded))
+              child: Icon(Icons.note_add_rounded)),
+          Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: IconButton(
+                icon: const Icon(Icons.note_rounded),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    Routes.notesList,
+                  );
+                },
+              ))
         ],
         bottom: TabBar(
           controller: _tabController,
