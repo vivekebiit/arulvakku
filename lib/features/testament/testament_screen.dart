@@ -26,26 +26,26 @@ class _TestamentScreenState extends State<TestamentScreen>
     return Scaffold(
       appBar: AppBar(
         title: const Text('திருவிவிலியம்'),
-        actions: [
-          const Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.search,
-                size: 20,
-              )),
-          const Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.note_add_rounded)),
-          Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: IconButton(
-                icon: const Icon(Icons.note_rounded),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    Routes.notesList,
-                  );
-                },
-              ))
+        actions: const [
+          // const Padding(
+          //     padding: EdgeInsets.only(right: 20),
+          //     child: Icon(
+          //       Icons.search,
+          //       size: 20,
+          //     )),
+          // const Padding(
+          //     padding: EdgeInsets.only(right: 20),
+          //     child: Icon(Icons.note_add_rounded)),
+          // Padding(
+          //     padding: const EdgeInsets.only(right: 20),
+          //     child: IconButton(
+          //       icon: const Icon(Icons.note_rounded),
+          //       onPressed: () {
+          //         Navigator.of(context).pushNamed(
+          //           Routes.notesList,
+          //         );
+          //       },
+          //     ))
         ],
         bottom: TabBar(
           controller: _tabController,

@@ -9,7 +9,7 @@ import '../data/model/new_testament_response.dart';
 import '../data/testament_provider.dart';
 
 class OldTestamentScreen extends ConsumerWidget {
-  OldTestamentScreen({super.key});
+  const OldTestamentScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

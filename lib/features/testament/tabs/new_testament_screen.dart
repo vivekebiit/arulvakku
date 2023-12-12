@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/app_ui_dimens.dart';
 import '../../../common/common_utils.dart';
+import '../../../routes/arguments.dart';
 import '../../../routes/routes.dart';
 import '../data/model/new_testament_response.dart';
 import '../data/testament_provider.dart';
 
 class NewTestamentScreen extends ConsumerWidget {
-  NewTestamentScreen({super.key});
+  const NewTestamentScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,9 +33,15 @@ class NewTestamentScreen extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed(
-                          Routes.testamentDetails,
-                        );
+                        // Navigator.of(context).pushNamed(
+                        //   Routes.testamentDetails,
+                        // );
+                        Navigator.of(context).pushNamed(Routes.testamentDetails,
+                            arguments: Argument(
+                                bookId: CommonUtils.returnBookID(
+                                    resultData[index].field1!),
+                                bookName: resultData[index].field3!,
+                                notesObj: {}));
                       },
                       child: Padding(
                         padding:

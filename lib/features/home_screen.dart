@@ -46,9 +46,12 @@ class HomeScreen extends ConsumerWidget {
                   Icons.share,
                   size: 20,
                 )),
-            Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: Icon(Icons.notifications_active))
+            Visibility(
+              visible: false,
+              child: Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: Icon(Icons.notifications_active)),
+            )
           ],
         ),
         body: Padding(
@@ -65,16 +68,6 @@ class HomeScreen extends ConsumerWidget {
                             RepaintBoundary(
                                 key: _globalKey,
                                 child: Card(
-                                  shape: const Border(
-                                    bottom: BorderSide(
-                                        color: Colors.grey, width: 0.5),
-                                    top: BorderSide(
-                                        color: Colors.grey, width: 0.5),
-                                    left: BorderSide(
-                                        color: Colors.grey, width: 0.5),
-                                    right: BorderSide(
-                                        color: Colors.grey, width: 0.5),
-                                  ),
                                   child: Padding(
                                       padding: const EdgeInsets.all(
                                           AppUIDimens.paddingMedium),
@@ -192,16 +185,6 @@ class HomeScreen extends ConsumerWidget {
                                     }
                                   },
                                   child: Card(
-                                    shape: const Border(
-                                      bottom: BorderSide(
-                                          color: Colors.grey, width: 0.5),
-                                      top: BorderSide(
-                                          color: Colors.grey, width: 0.5),
-                                      left: BorderSide(
-                                          color: Colors.grey, width: 0.5),
-                                      right: BorderSide(
-                                          color: Colors.grey, width: 0.5),
-                                    ),
                                     child: Padding(
                                         padding: const EdgeInsets.all(
                                             AppUIDimens.paddingMedium),

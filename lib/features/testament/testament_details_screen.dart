@@ -20,26 +20,29 @@ class TestamentDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final watcher = ref.watch(getTestamentDetails);
+    final watcher = ref.watch(getTestamentDetails(argument.bookId));
+    print(argument.bookId);
     return Scaffold(
       appBar: AppBar(
         title: Text(argument.bookName),
-        actions: [
-          const Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.search,
-                size: 20,
-              )),
-          Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.notes,
-                        arguments: Argument(
-                            bookId: "", bookName: "", notesObj: notesObj));
-                  },
-                  icon: const Icon(Icons.note_add_rounded)))
+        actions: const [
+          // const Padding(
+          //     padding: EdgeInsets.only(right: 20),
+          //     child: Icon(
+          //       Icons.search,
+          //       size: 20,
+          //     )),
+          // Padding(
+          //   padding: const EdgeInsets.only(right: 20),
+          //   child: IconButton(
+          //     onPressed: () {
+          //       Navigator.pushNamed(context, Routes.notes,
+          //           arguments:
+          //               Argument(bookId: "", bookName: "", notesObj: notesObj));
+          //     },
+          //     icon: const Icon(Icons.note_add_rounded),
+          //   ),
+          // )
         ],
       ),
       body: SingleChildScrollView(
@@ -51,7 +54,6 @@ class TestamentDetailScreen extends ConsumerWidget {
                   data: (data) {
                     List<TestamentDetails> resultData =
                         data as List<TestamentDetails>;
-                    // debugPrint("data $data");
                     return ListView.builder(
                         shrinkWrap: true,
                         primary: false,
