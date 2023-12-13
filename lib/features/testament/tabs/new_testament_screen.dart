@@ -21,15 +21,15 @@ class NewTestamentScreen extends ConsumerWidget {
           newTestament.when(
               data: (data) {
                 List<Testament> resultData = data as List<Testament>;
-                return ListView.separated(
+                return ListView.builder(
                   itemCount: resultData.length,
                   primary: false,
                   shrinkWrap: true,
-                  separatorBuilder: (context, index) => Container(
-                    width: double.infinity,
-                    height: 1,
-                    color: Colors.grey[200],
-                  ),
+                  // separatorBuilder: (context, index) => Container(
+                  //   width: double.infinity,
+                  //   height: 1,
+                  //   color: Colors.grey[200],
+                  // ),
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
@@ -43,32 +43,34 @@ class NewTestamentScreen extends ConsumerWidget {
                                 bookName: resultData[index].field3!,
                                 notesObj: {}));
                       },
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.all(AppUIDimens.paddingMedium),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Expanded(
-                                child: Row(children: [
-                              Text(
-                                "${index + 1}. ",
-                                style: const TextStyle(fontSize: 15),
-                              ),
-                              Text(resultData[index].field4!,
+                      child: Card(
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.all(AppUIDimens.paddingMedium),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                  child: Row(children: [
+                                Text(
+                                  "${index + 1}. ",
+                                  style: const TextStyle(fontSize: 15),
+                                ),
+                                Text(resultData[index].field4!,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500))
+                              ])),
+                              Text("${resultData[index].count!} அதி.",
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w500))
-                            ])),
-                            Text("${resultData[index].count!} அதி.",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey)),
-                            Icon(
-                              Icons.keyboard_arrow_right_rounded,
-                              color: Colors.grey[400],
-                            )
-                          ],
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey)),
+                              Icon(
+                                Icons.keyboard_arrow_right_rounded,
+                                color: Colors.grey[400],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );

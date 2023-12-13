@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../common/common_utils.dart';
-
 class VerseItem extends StatefulWidget {
   final String title;
   final ValueChanged<bool> onLongPressed;

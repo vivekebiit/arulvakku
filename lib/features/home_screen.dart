@@ -85,16 +85,16 @@ class HomeScreen extends ConsumerWidget {
                                                     AppUIDimens.marginXXSmall,
                                               ),
                                               Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   const Text(
-                                                    "இன்றைய  வசனம்",
+                                                    "இன்றைய வசனம்",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: AppUIDimens
-                                                        .marginXXXSmall,
                                                   ),
                                                   Text(resultData["verseNo"])
                                                 ],
