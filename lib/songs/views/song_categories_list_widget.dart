@@ -99,7 +99,7 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                 child: const Padding(
                   padding: EdgeInsets.only(top: 100, left: 8, right: 8),
                   child: Text(
-                    'Please check your internet connect or try again later!',
+                    'Please check your internet connection or try again later!',
                     textAlign: TextAlign.center,
                   ),
                 )),
