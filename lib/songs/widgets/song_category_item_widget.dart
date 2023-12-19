@@ -1,18 +1,18 @@
+import 'package:arulvakku/songs/isarmodel/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:arulvakku/songs/model/song_cateogry.dart';
 
 class SongCategoryItem extends StatelessWidget {
-  final dynamic data;
+  final ResultCategory? data;
 
   const SongCategoryItem({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final result = Result.fromJson(data);
     return Column(
       children: [
         ListTile(
-          title: Text(result.sCategory ?? '--'),
+          title: Text(data?.sCategory ?? '--'),
           leading: const Icon(Icons.library_music_rounded),
           trailing: const Icon(
             Icons.arrow_forward_ios_sharp,

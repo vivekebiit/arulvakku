@@ -22,7 +22,7 @@ class DioClient {
       ));
   }
   // Get:-----------------------------------------------------------------------
-  Future<dynamic> get(
+  Future<Response> get(
     String uri, {
     Map<String, dynamic>? queryParameters,
     Options? options,

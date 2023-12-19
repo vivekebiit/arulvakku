@@ -1,3 +1,4 @@
+import 'package:arulvakku/songs/isarmodel/category_model.dart';
 import 'package:arulvakku/songs/singleton/song_singleton.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/Song.dart';
@@ -20,6 +21,9 @@ class SearchSongsNotifier extends StateNotifier<AsyncValue<List<dynamic>>> {
         state = songListBackup;
        final singleton= SongSingleton();
        singleton.songListBackup = songListBackup;
+
+
+       // CategoryModel? categoryModel = CategoryModel.fromJson((response.data as Map))
       } catch (err, stack) {
         state = AsyncValue.error(err, stack);
       }
