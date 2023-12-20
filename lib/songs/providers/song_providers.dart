@@ -52,6 +52,25 @@ final getLocalSongsCategoryListProvider =
           await isarService.saveResultCategory(element);
         }
       }
+
+      ResponseFormat? model = await isarService.getResponseFormat();
+      List<ResultCategory> result = await isarService.getAllCategories();
+
+      for (var element in result) {
+        isarService.saveResultCategory(element);
+        if (element.sCategoryId != null) {
+          // log('CategoryRepo:element: ${element.toJson()}');
+          // await SongTitleRepo().getSongsCategoriesList(element.sCategoryId!);
+        }
+      }
+      CategoryModel categoryModel = CategoryModel(
+          version: model?.version,
+          licensedBy: model?.licensedBy,
+          statusCode: model?.statusCode,
+          requestUri: model?.requestUri,
+          method: model?.requestUri,
+          isTransactionDone: model?.isTransactionDone,
+          result: result);
       localData = await ref.watch(isarInstanceProvider).getAllCategories();
     }
   }
@@ -69,7 +88,6 @@ final getSongsListProvider =
 final searchCategoriesProvider = StateNotifierProvider.autoDispose<
     SearchCategoriesNotifier, AsyncValue<dynamic>>((ref) {
   final data = ref.watch(getSongsCategoryListProvider);
-  // final dataLocal = ref.watch(searchLocalCategoriesProvider);
 
   return SearchCategoriesNotifier(data);
 });
