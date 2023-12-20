@@ -75,13 +75,13 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                             itemBuilder: (context, index) {
                               return InkWell(
                                   onTap: () {
-                                    /*final result =
-                                        Result.fromJson(dataValue[index]);
+                                    final result =
+                                        dataValue[index];
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SongsList(result)));*/
+                                                SongsList(result)));
                                   },
                                   child:
                                       SongCategoryItem(data: dataValue[index]));
@@ -94,7 +94,8 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                 ],
               );
             },
-            error: (err, s) => /*Text(err.toString())*/ Container(
+            error: (err, s) => Text(err.toString())
+            /*Container(
                 alignment: Alignment.topCenter,
                 child: const Padding(
                   padding: EdgeInsets.only(top: 100, left: 8, right: 8),
@@ -102,7 +103,7 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                     'Please check your internet connection or try again later!',
                     textAlign: TextAlign.center,
                   ),
-                )),
+                ))*/,
             loading: () => CommonUtils.screenLoadingWidget(context)));
   }
 }

@@ -3,7 +3,7 @@ import 'package:arulvakku/songs/singleton/song_singleton.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/Song.dart';
 
-class SearchSongsNotifier extends StateNotifier<AsyncValue<List<dynamic>>> {
+/*class SearchSongsNotifier extends StateNotifier<AsyncValue<List<dynamic>>> {
   AsyncValue<List<Song>> songListBackup = AsyncData(List.empty());
 
   AsyncValue<dynamic> providerData;
@@ -45,4 +45,4 @@ class SearchSongsNotifier extends StateNotifier<AsyncValue<List<dynamic>>> {
           List.empty());
     }
   }
-}
+}*/

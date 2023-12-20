@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:arulvakku/songs/isarmodel/category_model.dart';
+import 'package:arulvakku/songs/isarmodel/song_title_model.dart';
 import 'package:arulvakku/songs/providers/song_providers.dart';
 import 'package:arulvakku/songs/views/song_lyrics_widget.dart';
 import 'package:arulvakku/songs/widgets/songs_item_widget.dart';
@@ -11,7 +13,7 @@ import 'package:arulvakku/songs/model/song_cateogry.dart';
 import 'package:arulvakku/songs/singleton/song_singleton.dart';
 
 class SongsList extends ConsumerStatefulWidget {
-  final Result? result;
+  final ResultCategory? result;
 
   const SongsList(this.result, {super.key});
 
@@ -23,13 +25,13 @@ class _SongsListState extends ConsumerState<SongsList> {
   @override
   Widget build(BuildContext context) {
     int currentPosition = widget.result?.sCategoryId ?? 0;
-    final categoryList = ref.watch(searchSongsProvider(currentPosition));
+    final categoryList = ref.watch(searchLocalSongsProvider(currentPosition));
 
     final myController = ref.watch(searchSongTextProvider);
 
     myController.addListener(() {
       ref
-          .read(searchSongsProvider(currentPosition).notifier)
+          .read(searchLocalSongsProvider(currentPosition).notifier)
           .search(myController.text);
     });
     return Scaffold(
@@ -38,7 +40,7 @@ class _SongsListState extends ConsumerState<SongsList> {
         ),
         body: categoryList.when(
             data: (data) {
-              final List<dynamic>? resultData = data;
+              final List<ResultSongTitle?> resultData = data;
 
               // ref.read(searchProvider.notifier).todos = resultData;
               final dataValue = resultData ?? List.empty();
@@ -57,7 +59,7 @@ class _SongsListState extends ConsumerState<SongsList> {
                           suffixIcon: IconButton(
                               onPressed: () {
                                 ref
-                                    .read(searchSongsProvider(currentPosition)
+                                    .read(searchLocalSongsProvider(currentPosition)
                                         .notifier)
                                     .search('');
                                 ref
@@ -86,8 +88,8 @@ class _SongsListState extends ConsumerState<SongsList> {
                                             List.empty();
                                     final position = allSongs.indexWhere(
                                         ((element) =>
-                                            element.sSongId ==
-                                            dataValue[index].sSongId));
+                                            element?.sSongId ==
+                                            dataValue[index]?.sSongId));
                                     ref
                                         .read(
                                             controllerPositionProvider.notifier)

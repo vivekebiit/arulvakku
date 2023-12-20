@@ -1,3 +1,4 @@
+import 'package:arulvakku/songs/isarmodel/song_title_model.dart';
 import 'package:arulvakku/songs/providers/song_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,7 +7,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:arulvakku/songs/model/Song.dart';
 
 class SongWidget extends ConsumerStatefulWidget {
-  final List<Song>? resultData;
+  final List<ResultSongTitle?>? resultData;
   final int position;
 
   const SongWidget({Key? key, required this.resultData, required this.position})
@@ -21,7 +22,7 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
   @override
   Widget build(BuildContext context) {
     final songs = widget.resultData ?? List.empty();
-    List<Song>.empty();
+    List<ResultSongTitle>.empty();
 
     int position = ref.watch(controllerPositionProvider);
 
@@ -30,7 +31,7 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(songs[position].sTitle ?? '--'),
+        title: Text(songs[position]?.sTitle ?? '--'),
         actions: [
           Padding(
               padding: const EdgeInsets.only(right: 20),
@@ -52,7 +53,7 @@ class _SongWidgetState extends ConsumerState<SongWidget> {
           ref.read(controllerPositionProvider.notifier).position(index);
         },
         itemBuilder: (context, index) {
-          lyrics = songs[index].sSong ?? '--';
+          lyrics = songs[index]?.sSong ?? '--';
           return SingleChildScrollView(
             child: Column(
               children: [

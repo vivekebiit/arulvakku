@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:arulvakku/service/isa_service.dart';
 import 'package:arulvakku/songs/isarmodel/category_model.dart';
 import 'package:arulvakku/songs/isarmodel/response_format.dart';
+import 'package:arulvakku/songs/isarmodel/song_title_model.dart';
 import 'package:arulvakku/songs/notifiers/controller_position_notifier.dart';
 import 'package:arulvakku/songs/notifiers/search_categories_notifier.dart';
 import 'package:arulvakku/songs/notifiers/search_local_categories_notifier.dart';
+import 'package:arulvakku/songs/notifiers/search_local_songs_notifier.dart';
 import 'package:arulvakku/songs/notifiers/search_songs_notifier.dart';
 import 'package:arulvakku/songs/notifiers/serch_text_notifier.dart';
 import 'package:dio/dio.dart';
@@ -60,7 +62,8 @@ final getLocalSongsCategoryListProvider =
         isarService.saveResultCategory(element);
         if (element.sCategoryId != null) {
           // log('CategoryRepo:element: ${element.toJson()}');
-          // await SongTitleRepo().getSongsCategoriesList(element.sCategoryId!);
+          await ref
+              .read(getSongsLocalListProvider(element.sCategoryId!).future);
         }
       }
       CategoryModel categoryModel = CategoryModel(
@@ -79,10 +82,36 @@ final getLocalSongsCategoryListProvider =
 });
 
 final getSongsListProvider =
-    FutureProvider.autoDispose.family<dynamic, int>((ref, sCategoryId) async {
+    FutureProvider.autoDispose.family<Response, int>((ref, sCategoryId) async {
   return ref.watch(dioClientProvider).post(
       'https://arulvakku.binaryexpertsystems.com/Arulvakku/GetSongsListByCategory',
       data: toJsonToGetSongs(sCategoryId));
+});
+// final data = ref.watch(isarInstanceProvider).getResulTitlesByCategoryId(sCategoryId);
+final getSongsLocalListProvider = FutureProvider.autoDispose
+    .family<List<ResultSongTitle>, int>((ref, sCategoryId) async {
+  var data = await ref
+      .watch(isarInstanceProvider)
+      .getResulTitlesByCategoryId(sCategoryId);
+
+  if (data.isEmpty) {
+    Response networkData =
+        await ref.read(getSongsListProvider(sCategoryId).future);
+    print("data: $networkData");
+
+    SongTitleModel? _model =
+        SongTitleModel.fromJson(networkData.data as Map<String, dynamic>);
+    IsarService isarService = await ref.read(isarInstanceProvider);
+    if (_model?.result != null) {
+      for (var element in _model.result ?? List.empty()) {
+        await isarService.saveResultSongTitle(element);
+      }
+    }
+    data = await ref
+        .watch(isarInstanceProvider)
+        .getResulTitlesByCategoryId(sCategoryId);
+  }
+  return data;
 });
 
 final searchCategoriesProvider = StateNotifierProvider.autoDispose<
@@ -99,10 +128,16 @@ final searchLocalCategoriesProvider = StateNotifierProvider.autoDispose<
   return SearchLocalCategoriesNotifier(data);
 });
 
-final searchSongsProvider = StateNotifierProvider.autoDispose
+/*final searchSongsProvider = StateNotifierProvider.autoDispose
     .family<SearchSongsNotifier, AsyncValue<dynamic>, int>((ref, sCategoryId) {
   final data = ref.watch(getSongsListProvider(sCategoryId));
   return SearchSongsNotifier(data);
+});*/
+
+final searchLocalSongsProvider = StateNotifierProvider.autoDispose
+    .family<SearchLocalSongsNotifier, AsyncValue<List<ResultSongTitle?>>, int>((ref, sCategoryId) {
+  final data = ref.watch(getSongsLocalListProvider(sCategoryId));
+  return SearchLocalSongsNotifier(data);
 });
 
 final controllerPositionProvider =

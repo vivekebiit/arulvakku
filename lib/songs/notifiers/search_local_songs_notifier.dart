@@ -21,7 +21,10 @@ class SearchLocalSongsNotifier
         final dataValue = response ?? List.empty();
         songListBackupBackup = AsyncValue.data(dataValue);
         state = songListBackupBackup;
+        final singleton= SongSingleton();
+        singleton.songListBackup = songListBackupBackup;
         songListBackupBackup = AsyncValue.data(dataValue);
+
       } catch (err, stack) {
         state = AsyncValue.error(err, stack);
       }
@@ -37,7 +40,7 @@ class SearchLocalSongsNotifier
       state = songListBackupBackup;
     } else {
       state = AsyncValue.data(songListBackupBackup.value
-              ?.where((e) => e?.sSong?.contains(text) == true)
+              ?.where((e) => e?.sTitle?.contains(text) == true)
               .toList() ??
           List.empty());
     }
