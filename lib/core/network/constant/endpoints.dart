@@ -11,5 +11,6 @@ class Endpoints {
   static const int connectionTimeout = 30000;
 
   final categoryMaxCount = 27;
-  final songsMaxCount = 2406;
+  // final songsMaxCount = 2406;
+  static const songsMaxCount = 2444;
 }

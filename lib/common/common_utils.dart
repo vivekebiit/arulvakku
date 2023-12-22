@@ -25,6 +25,20 @@ class CommonUtils {
               CircularProgressIndicator(),
             ]));
   }
+  static screenLoadingWidgetText(BuildContext context) {
+    return SizedBox(
+        height: MediaQuery.of(context).size.height - 100,
+        width: MediaQuery.of(context).size.width,
+        child: const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 30,),
+              Text('Wait for few mins! Songs are downloading...')
+            ]));
+  }
 
   static launchURL(String url, BuildContext context) async {
     final Uri uri = Uri.parse(url);

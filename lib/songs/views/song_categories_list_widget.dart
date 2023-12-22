@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:arulvakku/songs/isarmodel/category_model.dart';
+import 'package:arulvakku/songs/providers/category_provider.dart';
 import 'package:arulvakku/songs/providers/song_providers.dart';
 import 'package:arulvakku/songs/views/songs_list_widget.dart';
 import 'package:arulvakku/songs/widgets/song_category_item_widget.dart';
@@ -17,10 +20,19 @@ class SongCategories extends ConsumerStatefulWidget {
 }
 
 class _SongCategoriesState extends ConsumerState<SongCategories> {
+
+
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final searchSongCategory = ref.watch(searchLocalCategoriesProvider);
     final myController = ref.watch(searchCategoryTextProvider);
+    // final songsNotifier = ref.watch(songsCountProvider);
 
     myController.addListener(() {
       ref
@@ -37,6 +49,7 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
               final List<ResultCategory?> resultData = data;
               final dataValue = resultData;
 
+              // print("data_song: ${songsNotifier.value}");
               return Column(
                 children: [
                   Container(
@@ -104,6 +117,6 @@ class _SongCategoriesState extends ConsumerState<SongCategories> {
                     textAlign: TextAlign.center,
                   ),
                 ))*/,
-            loading: () => CommonUtils.screenLoadingWidget(context)));
+            loading: () => CommonUtils.screenLoadingWidgetText(context)));
   }
 }

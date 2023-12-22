@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:arulvakku/core/network/constant/endpoints.dart';
 import 'package:arulvakku/service/isa_service.dart';
 import 'package:arulvakku/songs/isarmodel/category_model.dart';
 import 'package:arulvakku/songs/isarmodel/response_format.dart';
@@ -10,6 +11,7 @@ import 'package:arulvakku/songs/notifiers/search_local_categories_notifier.dart'
 import 'package:arulvakku/songs/notifiers/search_local_songs_notifier.dart';
 import 'package:arulvakku/songs/notifiers/search_songs_notifier.dart';
 import 'package:arulvakku/songs/notifiers/serch_text_notifier.dart';
+import 'package:arulvakku/songs/providers/category_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,8 +27,10 @@ final getSongsCategoryListProvider =
 final getLocalSongsCategoryListProvider =
     FutureProvider.autoDispose<List<ResultCategory>>((ref) async {
   var localData = await ref.watch(isarInstanceProvider).getAllCategories();
+  var songsCount = await ref.watch(isarInstanceProvider).getSongsCount();
 
-  if (localData.isEmpty) {
+  print('songsCount: $songsCount');
+  if (songsCount<Endpoints.songsMaxCount)  {
     Response networkData = await ref.read(getSongsCategoryListProvider.future);
     print("data: $networkData");
 
@@ -135,11 +139,22 @@ final searchLocalCategoriesProvider = StateNotifierProvider.autoDispose<
 });*/
 
 final searchLocalSongsProvider = StateNotifierProvider.autoDispose
-    .family<SearchLocalSongsNotifier, AsyncValue<List<ResultSongTitle?>>, int>((ref, sCategoryId) {
+    .family<SearchLocalSongsNotifier, AsyncValue<List<ResultSongTitle?>>, int>(
+        (ref, sCategoryId) {
   final data = ref.watch(getSongsLocalListProvider(sCategoryId));
   return SearchLocalSongsNotifier(data);
 });
 
+final songsCountProvider =
+    StreamProvider.autoDispose<List<ResultSongTitle>>((ref) {
+  final data = ref.watch(isarInstanceProvider).listenToSongCount();
+
+  ref.onDispose(() {
+    print('songsCountProvider dispose');
+  });
+
+  return data;
+});
 final controllerPositionProvider =
     StateNotifierProvider<ControllerPositionNotifier, int>((ref) {
   return ControllerPositionNotifier();
@@ -154,3 +169,11 @@ final searchSongTextProvider = StateNotifierProvider.autoDispose<
 Map<String, dynamic> toJsonToGetSongs(int sCategoryId) => {
       'sCategoryId': sCategoryId,
     };
+
+Stream<List<ResultSongTitle>> listenToSongCount() async* {
+  yield* IsarService().listenToSongCount();
+}
+
+Future<int> getAllSongsConunt() {
+  return IsarService().getSongsCount();
+}
